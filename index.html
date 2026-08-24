@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="单机纯文字农牧场养成游戏《田园日志》">
+  <title>田园日志</title>
+  <link rel="stylesheet" href="./src/presentation/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <div id="site-shell" class="site-shell">
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">田园日志 / 本机存档</p>
+        <h1>田园日志</h1>
+      </div>
+      <div class="header-tools">
+        <a class="help-link" href="./help.html" target="_blank" rel="noopener" aria-label="打开玩法说明（新窗口）" title="玩法说明"><span aria-hidden="true">?</span></a>
+        <div id="status-strip" class="status-strip" aria-label="牧场状态"></div>
+      </div>
+    </header>
+    <nav id="main-nav" class="main-nav" aria-label="主要页面">
+      <button type="button" data-page="today" aria-current="page">今日</button>
+      <button type="button" data-page="plots">田区</button>
+      <button type="button" data-page="animals">动物</button>
+      <button type="button" data-page="warehouse">仓库</button>
+      <button type="button" data-page="processing">加工</button>
+      <button type="button" data-page="market">市场</button>
+      <button type="button" data-page="town">小镇</button>
+      <button type="button" data-page="tasks">待办</button>
+      <button type="button" data-page="logs">日志</button>
+      <button type="button" data-page="settings">设置</button>
+    </nav>
+  </div>
+  <div class="utility-bar">
+    <label for="global-search">搜索当前页</label>
+    <input id="global-search" type="search" aria-label="全局搜索，按斜杠键聚焦" autocomplete="off">
+    <span class="keyboard-hint">G 今日 · L 日志 · 1—9 选择 · Esc 返回</span>
+  </div>
+  <main id="main-content" tabindex="-1"></main>
+  <footer>
+    <p>存档只留在此设备。游戏不会因离线造成动物死亡或主线永久失败。</p>
+  </footer>
+  <div id="live-region" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+    <form method="dialog">
+      <h2 id="confirm-title">请再次确认</h2>
+      <p id="confirm-message"></p>
+      <div class="dialog-actions">
+        <button value="cancel" autofocus>取消</button>
+        <button value="confirm" class="danger">确认执行</button>
+      </div>
+    </form>
+  </dialog>
+  <script type="module" src="./src/presentation/app.js"></script>
+</body>
+</html>

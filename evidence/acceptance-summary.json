@@ -1,0 +1,6184 @@
+{
+  "generated_at": "fixed-clock:2026-03-02T05:00:00.000Z",
+  "runtime": "Node 22 / browser ES2022 modules",
+  "commands": [
+    "npm run check:content",
+    "npm run balance",
+    "npm test",
+    "npm run simulate",
+    "npm run build",
+    "npm run evidence"
+  ],
+  "content": {
+    "content_version": "0.2.0",
+    "counts": {
+      "crops": 19,
+      "weather": 10,
+      "animals": 5,
+      "recipes": 8,
+      "buildings": 8,
+      "residents": 8,
+      "regions": 3,
+      "events": 183
+    },
+    "event_categories": {
+      "farm": 40,
+      "animal": 35,
+      "weather": 32,
+      "resident": 48,
+      "main": 16,
+      "festival": 12
+    },
+    "references_valid": true,
+    "dsl_valid": true,
+    "localization_valid": true,
+    "narrative_valid": true
+  },
+  "balance": {
+    "crops": 19,
+    "animals": 5,
+    "recipes": 8,
+    "document_pressure_cash": {
+      "mode": "document_model",
+      "lay_rate": 0.7,
+      "start_cash": 2400,
+      "crop_gross": 2304,
+      "egg_gross": 1411.1999999999998,
+      "seed_cost": 1200,
+      "fertility_opportunity_cost": 60,
+      "fertility_cash": 60,
+      "feed_cash": 630,
+      "feed_opportunity_cost": 630,
+      "ending_feed": null,
+      "upkeep": 420,
+      "ending_cash": 3805.2,
+      "net_change": 1405.1999999999998
+    },
+    "runtime_cash": {
+      "mode": "runtime_strategy",
+      "lay_rate": 0.835,
+      "start_cash": 2400,
+      "crop_gross": 2880,
+      "egg_gross": 1683.36,
+      "seed_cost": 1200,
+      "fertility_opportunity_cost": 60,
+      "fertility_cash": 0,
+      "feed_cash": 300,
+      "feed_opportunity_cost": 630,
+      "ending_feed": 9,
+      "upkeep": 420,
+      "ending_cash": 5043.36,
+      "net_change": 2643.3599999999997
+    }
+  },
+  "golden": [
+    {
+      "days": 7,
+      "seed": "golden-v1",
+      "final_day": 8,
+      "cash": 2702,
+      "state_hash": "4164f5fa8085a91e34a0bace8b1148fa358862d6eb8b4fad5d427fe2c87993ee",
+      "log_hash": "406c6d50591ba4d32480871e3f0d398eaab8a35a2b99eec355976ef105630b45",
+      "unexpected_errors": 0
+    },
+    {
+      "days": 21,
+      "seed": "golden-v1",
+      "final_day": 22,
+      "cash": 4857,
+      "state_hash": "57c510f9b3b7528e52ee9ced79100f04add17ceba074070d334cb6481a11e06a",
+      "log_hash": "4b85a23f70da8617697a6b87367cb56c4d8bf499e01c05da4d6580e75f461d7f",
+      "unexpected_errors": 0
+    },
+    {
+      "days": 84,
+      "seed": "golden-v1",
+      "final_day": 85,
+      "cash": 9719,
+      "state_hash": "66bbd58b4b4e82a54b4be7844868715655fb4e35948c81366aa1cd41e261f2aa",
+      "log_hash": "320d0db31ff9256e164457ffc52e4cf67e60e57eb7d770ba4afeb13a7831787d",
+      "unexpected_errors": 0
+    }
+  ],
+  "golden_baselines": {
+    "current": "farm-journal-golden-replays-v2-current-content-mechanics",
+    "historical": "farm-journal-golden-replays-v1",
+    "supersedes_reason": "V0.2.0 content completion replaced flag/log-only event choices with stable, category-specific mechanical choices; v1 remains the immutable pre-content-mechanics history baseline.",
+    "first_divergence": {
+      "display_day": 2,
+      "event_id": "event_resident_01_01",
+      "legacy_choice_id": "choice_observe",
+      "current_choice_id": "choice_connect_01",
+      "legacy_effect_summary": "memory_resident_01=observed plus log only",
+      "current_effect_summary": "social XP +2, resident_shopkeeper familiarity +2/trust +1, memory_resident_01=careful, plus log",
+      "cause": "The current content contract requires real mechanical effects and globally stable category-specific choice IDs."
+    }
+  },
+  "strategies": {
+    "days": 84,
+    "seeds_per_strategy": 3,
+    "semantic_activity": {
+      "profit_processing_completions": 200,
+      "animal_purchases": 6,
+      "large_animal_purchases": 3,
+      "duck_purchases": 3,
+      "animal_species_exercised": [
+        "animal_chicken",
+        "animal_cow",
+        "animal_duck",
+        "animal_goat",
+        "animal_sheep"
+      ],
+      "completed_barns": 3,
+      "generated_order_weeks": 216,
+      "accepted_orders": 25,
+      "delivered_orders": 25,
+      "related_strategy_order_deliveries": 25,
+      "delivered_order_source_weeks": [
+        "1",
+        "10",
+        "11",
+        "2",
+        "3",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "late_order_deliveries": 15
+    },
+    "cash_ranges": {
+      "conservative": {
+        "min": 14630,
+        "max": 15051
+      },
+      "profit": {
+        "min": 14907,
+        "max": 18047
+      },
+      "animal": {
+        "min": 2498,
+        "max": 4760
+      },
+      "story": {
+        "min": 14658,
+        "max": 15365
+      },
+      "low_frequency": {
+        "min": 5782,
+        "max": 8048
+      },
+      "neglect": {
+        "min": 5991,
+        "max": 6617
+      }
+    },
+    "free_loop_detected": false,
+    "dominant_strategy": null,
+    "violations": 0,
+    "runs": [
+      {
+        "strategy": "conservative",
+        "seed": "strategy-conservative-v3-a",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 14665,
+        "average_work_utilization": 0.5940860215053763,
+        "target_large_species": "animal_cow",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 230
+        },
+        "sold_items": {
+          "item_herb": 96,
+          "item_wood": 89,
+          "item_turnip": 23,
+          "item_mushroom": 73
+        },
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_milk",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_potato",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_strawberry",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_cheese",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 21,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_pickle",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 22,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_turnip",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_wool",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_bread",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_duck_egg",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_yogurt",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_winter_wheat",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_cabbage",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_beet",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_radish",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_wool",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 57,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_clover",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_reed",
+            "quantity": 5,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_flour",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_clover",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_mushroom",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": 66,
+            "status": "complete"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_flour",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_tomato",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_sweet_potato",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_yogurt",
+            "quantity": 5,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_radish",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_scrap",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_turnip",
+            "quantity": 3,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_9_1"
+        ],
+        "delivered_order_ids": [
+          "order_9_1"
+        ],
+        "delivered_order_source_weeks": [
+          "9"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 14,
+        "late_orders_delivered": 1,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "conservative",
+        "seed": "strategy-conservative-v3-b",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 14630,
+        "average_work_utilization": 0.5860215053763441,
+        "target_large_species": "animal_goat",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 216
+        },
+        "sold_items": {
+          "item_wood": 90,
+          "item_herb": 84,
+          "item_mushroom": 54,
+          "item_turnip": 49,
+          "item_corn": 33
+        },
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_bread",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_melon",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_yogurt",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 15,
+            "deadline_day": 18,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_potato",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_mushroom",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 29,
+            "completed_day": 25,
+            "status": "complete"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_sweet_potato",
+            "quantity": 6,
+            "created_day": 22,
+            "deadline_day": 29,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_wheat_s",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_yarn",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_cheese",
+            "quantity": 6,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_yogurt",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_goat_milk",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_milk",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_wool",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_wheat",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 46,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_onion",
+            "quantity": 5,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_turnip",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_pumpkin",
+            "quantity": 6,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_clover",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_winter_wheat",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 63,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_pickle",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_egg",
+            "quantity": 4,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": 64,
+            "status": "complete"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_flour",
+            "quantity": 4,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_corn",
+            "quantity": 5,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_mushroom",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_wheat",
+            "quantity": 4,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_tomato",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 84,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_tomato",
+            "quantity": 7,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_beet",
+            "quantity": 8,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_bread",
+            "quantity": 5,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_3_1",
+          "order_9_1"
+        ],
+        "delivered_order_ids": [
+          "order_3_1",
+          "order_9_1"
+        ],
+        "delivered_order_source_weeks": [
+          "3",
+          "9"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 17,
+        "late_orders_delivered": 1,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "conservative",
+        "seed": "strategy-conservative-v3-c",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 15051,
+        "average_work_utilization": 0.5729166666666666,
+        "target_large_species": "animal_sheep",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 225
+        },
+        "sold_items": {
+          "item_herb": 80,
+          "item_mushroom": 79,
+          "item_turnip": 44,
+          "item_wood": 86,
+          "item_corn": 36
+        },
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_radish",
+            "quantity": 8,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_clover",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_mayo",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_beet",
+            "quantity": 4,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_turnip",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 22,
+            "completed_day": 17,
+            "status": "complete"
+          },
+          {
+            "id": "order_2_3",
+            "item_id": "item_kale",
+            "quantity": 8,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_wool",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_mayo",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_pumpkin",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_clay",
+            "quantity": 6,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_duck_egg",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_herb",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_egg",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": 36,
+            "status": "complete"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_cheese",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_turnip",
+            "quantity": 6,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_corn",
+            "quantity": 6,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_carrot",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_wood",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 57,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_bread",
+            "quantity": 6,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_turnip",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_clover",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_mushroom",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": 65,
+            "status": "complete"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_reed",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 74,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_carrot",
+            "quantity": 3,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_strawberry",
+            "quantity": 7,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_potato",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_egg",
+            "quantity": 7,
+            "created_day": 78,
+            "deadline_day": 83,
+            "completed_day": 78,
+            "status": "complete"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_clover",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_reed",
+            "quantity": 7,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_duck_egg",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_goat_milk",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 90,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_2_2",
+          "order_5_1",
+          "order_9_1",
+          "order_11_2"
+        ],
+        "delivered_order_ids": [
+          "order_2_2",
+          "order_5_1",
+          "order_9_1",
+          "order_11_2"
+        ],
+        "delivered_order_source_weeks": [
+          "11",
+          "2",
+          "5",
+          "9"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 17,
+        "late_orders_delivered": 2,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "profit",
+        "seed": "strategy-profit-v3-a",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 16408,
+        "average_work_utilization": 0.761904761904762,
+        "target_large_species": "animal_cow",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 224
+        },
+        "sold_items": {
+          "item_clay": 74,
+          "item_scrap": 82,
+          "item_wood": 84,
+          "item_cabbage": 24,
+          "item_reed": 72,
+          "item_herb": 68,
+          "item_mayo": 69,
+          "item_tomato": 11
+        },
+        "construction_statuses": [
+          {
+            "building_id": "build_workshop",
+            "status": "complete",
+            "invested_wp": 14,
+            "started_day": 10,
+            "ready_day": 13,
+            "activated_day": 14
+          }
+        ],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_carrot",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_scrap",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": 8,
+            "status": "complete"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_wool",
+            "quantity": 8,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_milk",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_wool",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 18,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_soybean",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_duck_egg",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 28,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_corn",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 29,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_kale",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_wheat_s",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_strawberry",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_clay",
+            "quantity": 3,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": 36,
+            "status": "complete"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_yogurt",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_compost",
+            "quantity": 4,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_bread",
+            "quantity": 6,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_soybean",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_clay",
+            "quantity": 5,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": 50,
+            "status": "complete"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_corn",
+            "quantity": 6,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_potato",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_duck_egg",
+            "quantity": 4,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_sweet_potato",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 62,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_herb",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": 67,
+            "status": "complete"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_bread",
+            "quantity": 7,
+            "created_day": 64,
+            "deadline_day": 67,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_pumpkin",
+            "quantity": 5,
+            "created_day": 64,
+            "deadline_day": 67,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_pickle",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_pumpkin",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_cabbage",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_tomato",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 83,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_radish",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 83,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_cabbage",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 83,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_beet",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_compost",
+            "quantity": 8,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_mayo",
+            "quantity": 8,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_1_2",
+          "order_5_2",
+          "order_7_1",
+          "order_9_1"
+        ],
+        "delivered_order_ids": [
+          "order_1_2",
+          "order_5_2",
+          "order_7_1",
+          "order_9_1"
+        ],
+        "delivered_order_source_weeks": [
+          "1",
+          "5",
+          "7",
+          "9"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 20,
+        "late_orders_delivered": 2,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "profit",
+        "seed": "strategy-profit-v3-b",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 18047,
+        "average_work_utilization": 0.7530864197530865,
+        "target_large_species": "animal_goat",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 229
+        },
+        "sold_items": {
+          "item_reed": 66,
+          "item_wood": 72,
+          "item_cabbage": 11,
+          "item_scrap": 66,
+          "item_herb": 69,
+          "item_clay": 79,
+          "item_mayo": 64,
+          "item_tomato": 45
+        },
+        "construction_statuses": [
+          {
+            "building_id": "build_workshop",
+            "status": "complete",
+            "invested_wp": 14,
+            "started_day": 14,
+            "ready_day": 17,
+            "activated_day": 18
+          }
+        ],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_cheese",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_melon",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_clay",
+            "quantity": 8,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": 12,
+            "status": "complete"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_wheat",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 22,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_clover",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 22,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_flour",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_jam",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_cabbage",
+            "quantity": 6,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_sweet_potato",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_pumpkin",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_cucumber",
+            "quantity": 3,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_wood",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": 39,
+            "status": "complete"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_mushroom",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_cheese",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_clay",
+            "quantity": 4,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": 45,
+            "status": "complete"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_wheat_s",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_reed",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 57,
+            "completed_day": 51,
+            "status": "complete"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_duck_egg",
+            "quantity": 6,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_herb",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 62,
+            "completed_day": 61,
+            "status": "complete"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_milk",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_corn",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_wheat",
+            "quantity": 5,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_pumpkin",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_egg",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 67,
+            "completed_day": 64,
+            "status": "complete"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_strawberry",
+            "quantity": 4,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_yarn",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_reed",
+            "quantity": 3,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": 73,
+            "status": "complete"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_onion",
+            "quantity": 4,
+            "created_day": 78,
+            "deadline_day": 84,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_cabbage",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_herb",
+            "quantity": 4,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": 81,
+            "status": "complete"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_clover",
+            "quantity": 7,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_flour",
+            "quantity": 5,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_egg",
+            "quantity": 5,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_1_3",
+          "order_5_3",
+          "order_6_3",
+          "order_7_2",
+          "order_8_1",
+          "order_9_3",
+          "order_10_3",
+          "order_11_3"
+        ],
+        "delivered_order_ids": [
+          "order_1_3",
+          "order_5_3",
+          "order_6_3",
+          "order_7_2",
+          "order_8_1",
+          "order_9_3",
+          "order_10_3",
+          "order_11_3"
+        ],
+        "delivered_order_source_weeks": [
+          "1",
+          "10",
+          "11",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 21,
+        "late_orders_delivered": 6,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "profit",
+        "seed": "strategy-profit-v3-c",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 14907,
+        "average_work_utilization": 0.75,
+        "target_large_species": "animal_sheep",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 216
+        },
+        "sold_items": {
+          "item_scrap": 71,
+          "item_clay": 93,
+          "item_wood": 86,
+          "item_cabbage": 11,
+          "item_reed": 23,
+          "item_tomato": 11,
+          "item_herb": 33,
+          "item_mayo": 60
+        },
+        "construction_statuses": [
+          {
+            "building_id": "build_workshop",
+            "status": "complete",
+            "invested_wp": 14,
+            "started_day": 19,
+            "ready_day": 22,
+            "activated_day": 23
+          }
+        ],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_cabbage",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_soybean",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_winter_wheat",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_soybean",
+            "quantity": 8,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_strawberry",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 28,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_tomato",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_onion",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_cucumber",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_pickle",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_bread",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_melon",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_compost",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_strawberry",
+            "quantity": 6,
+            "created_day": 43,
+            "deadline_day": 46,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_duck_egg",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_wheat",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_wheat_s",
+            "quantity": 8,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_clover",
+            "quantity": 6,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_reed",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 62,
+            "completed_day": 57,
+            "status": "complete"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_mushroom",
+            "quantity": 4,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_mushroom",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 63,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_sweet_potato",
+            "quantity": 6,
+            "created_day": 64,
+            "deadline_day": 67,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_potato",
+            "quantity": 5,
+            "created_day": 64,
+            "deadline_day": 71,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_wheat",
+            "quantity": 6,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_clover",
+            "quantity": 7,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_mushroom",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_soybean",
+            "quantity": 7,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_pumpkin",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 83,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_winter_wheat",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_reed",
+            "quantity": 8,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_onion",
+            "quantity": 3,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_radish",
+            "quantity": 5,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_8_1"
+        ],
+        "delivered_order_ids": [
+          "order_8_1"
+        ],
+        "delivered_order_source_weeks": [
+          "8"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 19,
+        "late_orders_delivered": 1,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "animal",
+        "seed": "strategy-animal-v3-a",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 4760,
+        "average_work_utilization": 0.7467948717948718,
+        "target_large_species": "animal_cow",
+        "purchased_species": {
+          "animal_duck": 1,
+          "animal_cow": 1
+        },
+        "purchased_species_days": {
+          "animal_duck": [
+            1
+          ],
+          "animal_cow": [
+            69
+          ]
+        },
+        "animal_care_days": {
+          "animal_duck": 84,
+          "animal_chicken": 252,
+          "animal_cow": 16
+        },
+        "animal_production": {
+          "animal_duck": 54,
+          "animal_chicken": 233,
+          "animal_cow": 45
+        },
+        "sold_items": {
+          "item_egg": 208,
+          "item_duck_egg": 41,
+          "item_turnip": 47,
+          "item_corn": 35,
+          "item_milk": 42
+        },
+        "construction_statuses": [
+          {
+            "building_id": "build_barn",
+            "status": "complete",
+            "invested_wp": 18,
+            "started_day": 64,
+            "ready_day": 68,
+            "activated_day": 69
+          }
+        ],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_beet",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_goat_milk",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_potato",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_duck_egg",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 18,
+            "completed_day": 17,
+            "status": "complete"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_winter_wheat",
+            "quantity": 4,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_clay",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_wool",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 29,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_tomato",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_pumpkin",
+            "quantity": 6,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_melon",
+            "quantity": 6,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_wool",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_cheese",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_herb",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_scrap",
+            "quantity": 6,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_cheese",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_yogurt",
+            "quantity": 8,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_potato",
+            "quantity": 6,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_clay",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 62,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_jam",
+            "quantity": 8,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_sweet_potato",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 63,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_bread",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_wheat_s",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_wood",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 74,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_cabbage",
+            "quantity": 4,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_winter_wheat",
+            "quantity": 3,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_cabbage",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 84,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_tomato",
+            "quantity": 4,
+            "created_day": 78,
+            "deadline_day": 84,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_pumpkin",
+            "quantity": 7,
+            "created_day": 85,
+            "deadline_day": 90,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_mushroom",
+            "quantity": 3,
+            "created_day": 85,
+            "deadline_day": 90,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_turnip",
+            "quantity": 5,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_2_1"
+        ],
+        "delivered_order_ids": [
+          "order_2_1"
+        ],
+        "delivered_order_source_weeks": [
+          "2"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 17,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "animal",
+        "seed": "strategy-animal-v3-b",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 2498,
+        "average_work_utilization": 0.7211538461538463,
+        "target_large_species": "animal_goat",
+        "purchased_species": {
+          "animal_duck": 1,
+          "animal_goat": 1
+        },
+        "purchased_species_days": {
+          "animal_duck": [
+            1
+          ],
+          "animal_goat": [
+            72
+          ]
+        },
+        "animal_care_days": {
+          "animal_duck": 84,
+          "animal_chicken": 252,
+          "animal_goat": 13
+        },
+        "animal_production": {
+          "animal_duck": 55,
+          "animal_chicken": 223,
+          "animal_goat": 20
+        },
+        "sold_items": {
+          "item_egg": 191,
+          "item_duck_egg": 53,
+          "item_turnip": 28,
+          "item_goat_milk": 12
+        },
+        "construction_statuses": [
+          {
+            "building_id": "build_barn",
+            "status": "complete",
+            "invested_wp": 18,
+            "started_day": 64,
+            "ready_day": 68,
+            "activated_day": 69
+          }
+        ],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_milk",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_beet",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_turnip",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": 8,
+            "status": "complete"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_herb",
+            "quantity": 8,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_tomato",
+            "quantity": 7,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_mushroom",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_bread",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 29,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_wood",
+            "quantity": 6,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_flour",
+            "quantity": 6,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_cabbage",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_egg",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": 38,
+            "status": "complete"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_winter_wheat",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_soybean",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_wheat",
+            "quantity": 8,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_jam",
+            "quantity": 5,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_wood",
+            "quantity": 5,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_pumpkin",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_tomato",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_soybean",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 61,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_soybean",
+            "quantity": 4,
+            "created_day": 57,
+            "deadline_day": 61,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_clover",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_pickle",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_strawberry",
+            "quantity": 5,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_goat_milk",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": 76,
+            "status": "complete"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_yarn",
+            "quantity": 5,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_wheat",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_mushroom",
+            "quantity": 5,
+            "created_day": 78,
+            "deadline_day": 83,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_duck_egg",
+            "quantity": 6,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_cabbage",
+            "quantity": 3,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_1_3",
+          "order_5_1",
+          "order_10_2"
+        ],
+        "delivered_order_ids": [
+          "order_1_3",
+          "order_5_1",
+          "order_10_2"
+        ],
+        "delivered_order_source_weeks": [
+          "1",
+          "10",
+          "5"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 16,
+        "late_orders_delivered": 1,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "animal",
+        "seed": "strategy-animal-v3-c",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 3339,
+        "average_work_utilization": 0.7467948717948718,
+        "target_large_species": "animal_sheep",
+        "purchased_species": {
+          "animal_duck": 1,
+          "animal_sheep": 1
+        },
+        "purchased_species_days": {
+          "animal_duck": [
+            1
+          ],
+          "animal_sheep": [
+            69
+          ]
+        },
+        "animal_care_days": {
+          "animal_duck": 84,
+          "animal_chicken": 252,
+          "animal_sheep": 16
+        },
+        "animal_production": {
+          "animal_duck": 60,
+          "animal_chicken": 213,
+          "animal_sheep": 15
+        },
+        "sold_items": {
+          "item_duck_egg": 59,
+          "item_egg": 186,
+          "item_wool": 15
+        },
+        "construction_statuses": [
+          {
+            "building_id": "build_barn",
+            "status": "complete",
+            "invested_wp": 18,
+            "started_day": 64,
+            "ready_day": 68,
+            "activated_day": 69
+          }
+        ],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_jam",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_kale",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_strawberry",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_winter_wheat",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_melon",
+            "quantity": 8,
+            "created_day": 15,
+            "deadline_day": 21,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_3",
+            "item_id": "item_strawberry",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_compost",
+            "quantity": 6,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_duck_egg",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_melon",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_melon",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_clover",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_strawberry",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_clay",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_kale",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_carrot",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_bread",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_herb",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_egg",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": 50,
+            "status": "complete"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_wheat_s",
+            "quantity": 8,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_reed",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 61,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_herb",
+            "quantity": 8,
+            "created_day": 57,
+            "deadline_day": 62,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_beet",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_winter_wheat",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_potato",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_pumpkin",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_compost",
+            "quantity": 4,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_tomato",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_cucumber",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_goat_milk",
+            "quantity": 7,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_wool",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_strawberry",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 84,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_milk",
+            "quantity": 3,
+            "created_day": 85,
+            "deadline_day": 90,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_turnip",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 92,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [
+          "order_7_2"
+        ],
+        "delivered_order_ids": [
+          "order_7_2"
+        ],
+        "delivered_order_source_weeks": [
+          "7"
+        ],
+        "max_active_orders": 3,
+        "late_orders_created": 20,
+        "late_orders_delivered": 1,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "story",
+        "seed": "strategy-story-v3-a",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 14707,
+        "average_work_utilization": 0.5,
+        "target_large_species": "animal_cow",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 226
+        },
+        "sold_items": {
+          "item_mushroom": 61,
+          "item_herb": 90,
+          "item_wood": 116,
+          "item_clay": 11,
+          "item_scrap": 4
+        },
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_goat_milk",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_wheat_s",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_radish",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_turnip",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_beet",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_beet",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_carrot",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 28,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_pumpkin",
+            "quantity": 6,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_winter_wheat",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_yarn",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_pumpkin",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_wheat_s",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_goat_milk",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_cucumber",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_sweet_potato",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_winter_wheat",
+            "quantity": 5,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_flour",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_wheat_s",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_tomato",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_sweet_potato",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 63,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_jam",
+            "quantity": 4,
+            "created_day": 64,
+            "deadline_day": 67,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_flour",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_herb",
+            "quantity": 4,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_milk",
+            "quantity": 3,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_pumpkin",
+            "quantity": 7,
+            "created_day": 71,
+            "deadline_day": 76,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_bread",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_potato",
+            "quantity": 7,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_beet",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_yogurt",
+            "quantity": 5,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_clay",
+            "quantity": 5,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 17,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "story",
+        "seed": "strategy-story-v3-b",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 14658,
+        "average_work_utilization": 0.5,
+        "target_large_species": "animal_goat",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 216
+        },
+        "sold_items": {
+          "item_herb": 71,
+          "item_mushroom": 84,
+          "item_wood": 121,
+          "item_clay": 17,
+          "item_scrap": 5,
+          "item_reed": 2
+        },
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_soybean",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_clay",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_pumpkin",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_soybean",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 21,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_herb",
+            "quantity": 8,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_3",
+            "item_id": "item_reed",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_mayo",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_compost",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 28,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_yogurt",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_yogurt",
+            "quantity": 4,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_soybean",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_flour",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_mushroom",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_pickle",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_wood",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_duck_egg",
+            "quantity": 4,
+            "created_day": 43,
+            "deadline_day": 46,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_soybean",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 57,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_turnip",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 57,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_bread",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_strawberry",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 71,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_herb",
+            "quantity": 6,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_mayo",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_wool",
+            "quantity": 5,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_clay",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_sweet_potato",
+            "quantity": 4,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_pickle",
+            "quantity": 3,
+            "created_day": 85,
+            "deadline_day": 92,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_mayo",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_herb",
+            "quantity": 8,
+            "created_day": 85,
+            "deadline_day": 92,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 15,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "story",
+        "seed": "strategy-story-v3-c",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 15365,
+        "average_work_utilization": 0.5,
+        "target_large_species": "animal_sheep",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 233
+        },
+        "sold_items": {
+          "item_mushroom": 70,
+          "item_wood": 98,
+          "item_herb": 94,
+          "item_clay": 18,
+          "item_reed": 2,
+          "item_scrap": 4
+        },
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_herb",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_strawberry",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_turnip",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_yogurt",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 21,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_yarn",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 18,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_cheese",
+            "quantity": 6,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_soybean",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 28,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_duck_egg",
+            "quantity": 6,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_jam",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_pumpkin",
+            "quantity": 4,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_cabbage",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_mushroom",
+            "quantity": 3,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_beet",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_wheat_s",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_wheat",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_herb",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_jam",
+            "quantity": 8,
+            "created_day": 43,
+            "deadline_day": 46,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_goat_milk",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_soybean",
+            "quantity": 8,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_melon",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 61,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_wheat_s",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 71,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_yarn",
+            "quantity": 6,
+            "created_day": 64,
+            "deadline_day": 71,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_carrot",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_pumpkin",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_mushroom",
+            "quantity": 4,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_bread",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 92,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_bread",
+            "quantity": 8,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 14,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "low_frequency",
+        "seed": "strategy-low_frequency-v3-a",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 5782,
+        "average_work_utilization": 0.18055555555555547,
+        "target_large_species": "animal_cow",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 223
+        },
+        "sold_items": {},
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_wheat",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_kale",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_egg",
+            "quantity": 8,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_pickle",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 18,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_kale",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 21,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_3",
+            "item_id": "item_scrap",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 21,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_sweet_potato",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_yarn",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_mushroom",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_sweet_potato",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_wool",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_egg",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_wheat",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_radish",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_wheat",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_tomato",
+            "quantity": 8,
+            "created_day": 43,
+            "deadline_day": 46,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_yogurt",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_corn",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_bread",
+            "quantity": 8,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_egg",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_wheat_s",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_reed",
+            "quantity": 3,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_tomato",
+            "quantity": 8,
+            "created_day": 57,
+            "deadline_day": 63,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_potato",
+            "quantity": 4,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_herb",
+            "quantity": 8,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_egg",
+            "quantity": 7,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_turnip",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_tomato",
+            "quantity": 5,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_bread",
+            "quantity": 4,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_turnip",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_cheese",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_mushroom",
+            "quantity": 4,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_bread",
+            "quantity": 8,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_wheat",
+            "quantity": 6,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 19,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "low_frequency",
+        "seed": "strategy-low_frequency-v3-b",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 6304,
+        "average_work_utilization": 0.17910447761194023,
+        "target_large_species": "animal_goat",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 217
+        },
+        "sold_items": {},
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_corn",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_soybean",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_beet",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_goat_milk",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 22,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_cabbage",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_duck_egg",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 29,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_wood",
+            "quantity": 4,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_jam",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_tomato",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 34,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_wheat_s",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 40,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_milk",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_soybean",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_mayo",
+            "quantity": 8,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_egg",
+            "quantity": 7,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_pumpkin",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_carrot",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_corn",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_mayo",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_wheat",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_winter_wheat",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_melon",
+            "quantity": 7,
+            "created_day": 64,
+            "deadline_day": 67,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_clover",
+            "quantity": 4,
+            "created_day": 64,
+            "deadline_day": 71,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_pumpkin",
+            "quantity": 7,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_egg",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_jam",
+            "quantity": 3,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_jam",
+            "quantity": 5,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_milk",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 16,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "low_frequency",
+        "seed": "strategy-low_frequency-v3-c",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 8048,
+        "average_work_utilization": 0.18076923076923065,
+        "target_large_species": "animal_sheep",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 227
+        },
+        "sold_items": {
+          "item_turnip": 20,
+          "item_corn": 33
+        },
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_turnip",
+            "quantity": 5,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_winter_wheat",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_mushroom",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_kale",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_melon",
+            "quantity": 4,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_3",
+            "item_id": "item_cheese",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 22,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_soybean",
+            "quantity": 6,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_sweet_potato",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_onion",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_wheat_s",
+            "quantity": 4,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_wheat_s",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_milk",
+            "quantity": 8,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_strawberry",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_jam",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_jam",
+            "quantity": 5,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_bread",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_goat_milk",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_melon",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_potato",
+            "quantity": 4,
+            "created_day": 57,
+            "deadline_day": 62,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_mushroom",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 63,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_duck_egg",
+            "quantity": 6,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_strawberry",
+            "quantity": 4,
+            "created_day": 64,
+            "deadline_day": 67,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_wool",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_reed",
+            "quantity": 5,
+            "created_day": 71,
+            "deadline_day": 74,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_wood",
+            "quantity": 4,
+            "created_day": 71,
+            "deadline_day": 74,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_beet",
+            "quantity": 6,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_reed",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 84,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_flour",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_clay",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 90,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_sweet_potato",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 88,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 18,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "neglect",
+        "seed": "strategy-neglect-v3-a",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 6617,
+        "average_work_utilization": 0.09538152610441758,
+        "target_large_species": "animal_cow",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 230
+        },
+        "sold_items": {},
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_yarn",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_carrot",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_strawberry",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 15,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_scrap",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_compost",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_carrot",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_milk",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 28,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_yogurt",
+            "quantity": 3,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_corn",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 32,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_wood",
+            "quantity": 5,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_yarn",
+            "quantity": 8,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_pickle",
+            "quantity": 5,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_duck_egg",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_clay",
+            "quantity": 7,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_wool",
+            "quantity": 4,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_reed",
+            "quantity": 5,
+            "created_day": 50,
+            "deadline_day": 55,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_mayo",
+            "quantity": 4,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_3",
+            "item_id": "item_pumpkin",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 57,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_wheat_s",
+            "quantity": 4,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_carrot",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_clay",
+            "quantity": 6,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_beet",
+            "quantity": 5,
+            "created_day": 64,
+            "deadline_day": 71,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_jam",
+            "quantity": 5,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_jam",
+            "quantity": 7,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_bread",
+            "quantity": 3,
+            "created_day": 71,
+            "deadline_day": 78,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_yarn",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_winter_wheat",
+            "quantity": 8,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_soybean",
+            "quantity": 7,
+            "created_day": 85,
+            "deadline_day": 90,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_corn",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 15,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "neglect",
+        "seed": "strategy-neglect-v3-b",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 5991,
+        "average_work_utilization": 0.09538152610441758,
+        "target_large_species": "animal_goat",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 229
+        },
+        "sold_items": {},
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_corn",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 13,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_bread",
+            "quantity": 3,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_egg",
+            "quantity": 4,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_clover",
+            "quantity": 6,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_yarn",
+            "quantity": 8,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_3",
+            "item_id": "item_pumpkin",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 19,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_milk",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 26,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_flour",
+            "quantity": 8,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_soybean",
+            "quantity": 6,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_wool",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_duck_egg",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 35,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_3",
+            "item_id": "item_yogurt",
+            "quantity": 4,
+            "created_day": 29,
+            "deadline_day": 33,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_yogurt",
+            "quantity": 6,
+            "created_day": 36,
+            "deadline_day": 42,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_2",
+            "item_id": "item_tomato",
+            "quantity": 4,
+            "created_day": 36,
+            "deadline_day": 43,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_3",
+            "item_id": "item_pickle",
+            "quantity": 3,
+            "created_day": 36,
+            "deadline_day": 41,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_compost",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 48,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_potato",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_duck_egg",
+            "quantity": 6,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 50,
+            "deadline_day": 53,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_pumpkin",
+            "quantity": 7,
+            "created_day": 57,
+            "deadline_day": 61,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_milk",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 61,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_cabbage",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_clover",
+            "quantity": 4,
+            "created_day": 64,
+            "deadline_day": 69,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_cheese",
+            "quantity": 6,
+            "created_day": 64,
+            "deadline_day": 70,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_3",
+            "item_id": "item_flour",
+            "quantity": 6,
+            "created_day": 64,
+            "deadline_day": 71,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_goat_milk",
+            "quantity": 7,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_corn",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 74,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_wheat",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 83,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_corn",
+            "quantity": 5,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_beet",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 85,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_sweet_potato",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 92,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_tomato",
+            "quantity": 6,
+            "created_day": 85,
+            "deadline_day": 91,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 17,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      },
+      {
+        "strategy": "neglect",
+        "seed": "strategy-neglect-v3-c",
+        "final_day": 85,
+        "final_real_date_key": "2026-05-25",
+        "cash": 6137,
+        "average_work_utilization": 0.0965447154471544,
+        "target_large_species": "animal_sheep",
+        "purchased_species": {},
+        "purchased_species_days": {},
+        "animal_care_days": {
+          "animal_chicken": 252
+        },
+        "animal_production": {
+          "animal_chicken": 226
+        },
+        "sold_items": {},
+        "construction_statuses": [],
+        "order_generation_keys": [
+          "2026-03-09",
+          "2026-03-16",
+          "2026-03-23",
+          "2026-03-30",
+          "2026-04-06",
+          "2026-04-13",
+          "2026-04-20",
+          "2026-04-27",
+          "2026-05-04",
+          "2026-05-11",
+          "2026-05-18",
+          "2026-05-25"
+        ],
+        "order_records": [
+          {
+            "id": "order_1_1",
+            "item_id": "item_duck_egg",
+            "quantity": 6,
+            "created_day": 8,
+            "deadline_day": 12,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_2",
+            "item_id": "item_winter_wheat",
+            "quantity": 7,
+            "created_day": 8,
+            "deadline_day": 11,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_1_3",
+            "item_id": "item_kale",
+            "quantity": 8,
+            "created_day": 8,
+            "deadline_day": 14,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_1",
+            "item_id": "item_radish",
+            "quantity": 5,
+            "created_day": 15,
+            "deadline_day": 18,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_2",
+            "item_id": "item_pumpkin",
+            "quantity": 3,
+            "created_day": 15,
+            "deadline_day": 20,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_2_3",
+            "item_id": "item_beet",
+            "quantity": 7,
+            "created_day": 15,
+            "deadline_day": 18,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_1",
+            "item_id": "item_beet",
+            "quantity": 5,
+            "created_day": 22,
+            "deadline_day": 29,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_2",
+            "item_id": "item_wheat_s",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 25,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_3_3",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 22,
+            "deadline_day": 27,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_1",
+            "item_id": "item_duck_egg",
+            "quantity": 7,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_4_2",
+            "item_id": "item_egg",
+            "quantity": 3,
+            "created_day": 29,
+            "deadline_day": 36,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_5_1",
+            "item_id": "item_mushroom",
+            "quantity": 6,
+            "created_day": 36,
+            "deadline_day": 39,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_1",
+            "item_id": "item_corn",
+            "quantity": 3,
+            "created_day": 43,
+            "deadline_day": 47,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_2",
+            "item_id": "item_duck_egg",
+            "quantity": 4,
+            "created_day": 43,
+            "deadline_day": 49,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_6_3",
+            "item_id": "item_mayo",
+            "quantity": 4,
+            "created_day": 43,
+            "deadline_day": 50,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_1",
+            "item_id": "item_wheat",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 56,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_7_2",
+            "item_id": "item_flour",
+            "quantity": 3,
+            "created_day": 50,
+            "deadline_day": 54,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_1",
+            "item_id": "item_milk",
+            "quantity": 4,
+            "created_day": 57,
+            "deadline_day": 64,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_2",
+            "item_id": "item_turnip",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 60,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_8_3",
+            "item_id": "item_jam",
+            "quantity": 5,
+            "created_day": 57,
+            "deadline_day": 62,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_1",
+            "item_id": "item_bread",
+            "quantity": 3,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_9_2",
+            "item_id": "item_clay",
+            "quantity": 5,
+            "created_day": 64,
+            "deadline_day": 68,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_1",
+            "item_id": "item_strawberry",
+            "quantity": 8,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_2",
+            "item_id": "item_wheat_s",
+            "quantity": 4,
+            "created_day": 71,
+            "deadline_day": 77,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_10_3",
+            "item_id": "item_clover",
+            "quantity": 5,
+            "created_day": 71,
+            "deadline_day": 75,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_1",
+            "item_id": "item_herb",
+            "quantity": 6,
+            "created_day": 78,
+            "deadline_day": 82,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_2",
+            "item_id": "item_yogurt",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_11_3",
+            "item_id": "item_potato",
+            "quantity": 3,
+            "created_day": 78,
+            "deadline_day": 81,
+            "completed_day": null,
+            "status": "expired"
+          },
+          {
+            "id": "order_12_1",
+            "item_id": "item_radish",
+            "quantity": 6,
+            "created_day": 85,
+            "deadline_day": 92,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_2",
+            "item_id": "item_cucumber",
+            "quantity": 7,
+            "created_day": 85,
+            "deadline_day": 89,
+            "completed_day": null,
+            "status": "offered"
+          },
+          {
+            "id": "order_12_3",
+            "item_id": "item_herb",
+            "quantity": 4,
+            "created_day": 85,
+            "deadline_day": 92,
+            "completed_day": null,
+            "status": "offered"
+          }
+        ],
+        "accepted_order_ids": [],
+        "delivered_order_ids": [],
+        "delivered_order_source_weeks": [],
+        "max_active_orders": 3,
+        "late_orders_created": 19,
+        "late_orders_delivered": 0,
+        "outstanding_reservations": 0,
+        "unexpected_errors": 0
+      }
+    ]
+  },
+  "release_bundle": {
+    "manifest": "release-manifest.json",
+    "files": 31,
+    "bundle_hash": "42533e1ab7fa9d5f068f98dd0ccb8d28d5c5e2eb7ca9ef14300e3496ca298bb4"
+  },
+  "evidence_hash": "e5a9f94aa0b27db68c455ff4e52b198573619a9d158ddd2002b8084b0918ced7"
+}

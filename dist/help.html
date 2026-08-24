@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="《田园日志》玩法说明">
+  <title>玩法说明 · 田园日志</title>
+  <link rel="stylesheet" href="./src/presentation/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#help-content">跳到玩法说明</a>
+  <header class="site-header help-header">
+    <div>
+      <p class="eyebrow">田园日志 / 玩家指南</p>
+      <h1>玩法说明</h1>
+    </div>
+    <a class="help-back" href="./index.html">返回田园日志</a>
+  </header>
+  <main id="help-content" class="help-content" tabindex="-1">
+    <p class="notice">《田园日志》跟着现实日期往前走。每天先看看“今日”，再决定把工时花在哪里。</p>
+
+    <nav aria-label="说明目录">
+      <strong>目录</strong>
+      <ul>
+        <li><a href="#quick-start">快速开始</a></li>
+        <li><a href="#resources">工时与资源</a></li>
+        <li><a href="#pages">页面功能</a></li>
+        <li><a href="#day-change">日期推进</a></li>
+        <li><a href="#controls">键盘操作</a></li>
+        <li><a href="#saving">存档与备份</a></li>
+      </ul>
+    </nav>
+
+    <section id="quick-start">
+      <h2>快速开始</h2>
+      <ol>
+        <li>在“今日”看看天气、要留意的事和未来 3 天的工时。</li>
+        <li>进入“田区”，选一种作物播种。按钮上会直接写明要花多少 WP。</li>
+        <li>回到“今日”，加上自己想做的事，然后确认今天的安排。</li>
+        <li>在“动物”清理圈舍、放牧或陪它们玩；有急事就去看“待办”。</li>
+        <li>把要卖的东西放进出售箱，下次日结后就会到账。</li>
+      </ol>
+    </section>
+
+    <section id="resources">
+      <h2>工时与资源</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>WP（工时）</h3>
+          <p>WP 就是每天能做多少活。要花 WP 的按钮会直接显示费用；不会重复扣费时也会写清楚。</p>
+        </article>
+        <article class="card">
+          <h3>专注</h3>
+          <p>聊天、探索、当天第一次加工和部分建设会用到专注。费用会和 WP 一起显示。</p>
+        </article>
+        <article class="card">
+          <h3>G（资金）</h3>
+          <p>资金可以购买种子、饲料、治疗和建设。出售箱里的商品会在日结后到账。</p>
+        </article>
+      </div>
+      <p class="meta">一天的活太多时，托管会按顺序处理。你可以在“今日”调整先做什么。</p>
+    </section>
+
+    <section id="pages">
+      <h2>页面功能</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>页面</th><th>用途</th></tr></thead>
+          <tbody>
+            <tr><td>今日</td><td>看看今天的情况，安排要做的事。</td></tr>
+            <tr><td>田区</td><td>播种、灌溉、除草、施肥和收获。</td></tr>
+            <tr><td>动物</td><td>看看动物状态，清理圈舍、放牧、陪伴和治疗。</td></tr>
+            <tr><td>仓库</td><td>查看库存、品质与保质期，管理出售箱。</td></tr>
+            <tr><td>加工</td><td>把原料做成商品；当天第一次加工会收一次 WP / 专注。</td></tr>
+            <tr><td>市场</td><td>购买种子和饲料，查看价格、出售预览与订单。</td></tr>
+            <tr><td>小镇</td><td>找居民聊天、去探索或建设牧场。</td></tr>
+            <tr><td>待办</td><td>集中查看事件、订单、工程和仓储异常。</td></tr>
+            <tr><td>日志</td><td>回看经营记录、周报和年度报告。</td></tr>
+            <tr><td>设置</td><td>调整显示和时区，导入或导出备份。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="day-change">
+      <h2>日期推进与离线保护</h2>
+      <p>游戏按当前时区和每天的刷新时间进入新一天。重新打开页面或点“更新到今天”时，会补上已经过去的日子；同一天不会重复结算。</p>
+      <ul>
+        <li>短期离线会逐日结算已经安排的工作。</li>
+        <li>较长离线会进入安全托管和休整，不会无限追赶。</li>
+        <li>离线不会造成动物死亡或主线永久失败。</li>
+      </ul>
+    </section>
+
+    <section id="controls">
+      <h2>键盘操作</h2>
+      <ul>
+        <li><kbd>G</kbd>：返回“今日”。</li>
+        <li><kbd>L</kbd>：打开“日志”。</li>
+        <li><kbd>/</kbd>：聚焦当前页搜索。</li>
+        <li><kbd>1</kbd>—<kbd>9</kbd>：聚焦当前页对应操作，再按 <kbd>Enter</kbd> 执行。</li>
+        <li><kbd>Esc</kbd>：清空搜索并返回“今日”，或关闭确认对话框。</li>
+      </ul>
+      <p>出售动物、取消已开始工程、创建新存档等高风险操作需要再次确认。</p>
+    </section>
+
+    <section id="saving">
+      <h2>存档与备份</h2>
+      <p>存档只留在当前浏览器和设备里。操作成功后会自动保存；“设置”里可以导出或导入备份。</p>
+      <p class="notice warning">清理浏览器网站数据、使用另一浏览器或更换设备前，请先导出备份。</p>
+    </section>
+  </main>
+  <footer><p>玩法说明不会读取或修改你的本机存档。</p></footer>
+</body>
+</html>

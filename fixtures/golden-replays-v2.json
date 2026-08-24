@@ -1,0 +1,34 @@
+{
+  "format": "farm-journal-golden-replays-v2-current-content-mechanics",
+  "seed": "golden-v1",
+  "supersedes_reason": "V0.2.0 content completion replaced flag/log-only event choices with stable, category-specific mechanical choices; v1 remains the immutable pre-content-mechanics history baseline.",
+  "first_divergence": {
+    "display_day": 2,
+    "event_id": "event_resident_01_01",
+    "legacy_choice_id": "choice_observe",
+    "current_choice_id": "choice_connect_01",
+    "legacy_effect_summary": "memory_resident_01=observed plus log only",
+    "current_effect_summary": "social XP +2, resident_shopkeeper familiarity +2/trust +1, memory_resident_01=careful, plus log",
+    "cause": "The current content contract requires real mechanical effects and globally stable category-specific choice IDs."
+  },
+  "checkpoints": {
+    "7": {
+      "final_day": 8,
+      "cash": 2702,
+      "state_hash": "4164f5fa8085a91e34a0bace8b1148fa358862d6eb8b4fad5d427fe2c87993ee",
+      "log_hash": "406c6d50591ba4d32480871e3f0d398eaab8a35a2b99eec355976ef105630b45"
+    },
+    "21": {
+      "final_day": 22,
+      "cash": 4857,
+      "state_hash": "57c510f9b3b7528e52ee9ced79100f04add17ceba074070d334cb6481a11e06a",
+      "log_hash": "4b85a23f70da8617697a6b87367cb56c4d8bf499e01c05da4d6580e75f461d7f"
+    },
+    "84": {
+      "final_day": 85,
+      "cash": 9719,
+      "state_hash": "66bbd58b4b4e82a54b4be7844868715655fb4e35948c81366aa1cd41e261f2aa",
+      "log_hash": "320d0db31ff9256e164457ffc52e4cf67e60e57eb7d770ba4afeb13a7831787d"
+    }
+  }
+}

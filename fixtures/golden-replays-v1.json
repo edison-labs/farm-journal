@@ -1,0 +1,24 @@
+{
+  "format": "farm-journal-golden-replays-v1",
+  "seed": "golden-v1",
+  "checkpoints": {
+    "7": {
+      "final_day": 8,
+      "cash": 2692,
+      "state_hash": "676b38c21007e637b9c294b9593811b2b60d28d88c88a7c65eecf6cdee50e6a7",
+      "log_hash": "7584e2675cdf5dcc77ed169952e619b1e1812b18c1cfc1e28374e9db29a71204"
+    },
+    "21": {
+      "final_day": 22,
+      "cash": 4781,
+      "state_hash": "e1cae2f2141d1c29a46b5d6e67f6e01c9eecf0fdabd0353d23c9ef2626f8a34f",
+      "log_hash": "ab3cee6428e896a55eaa95fb273d8be0ad3b6ff739fa756d3787707282640b2d"
+    },
+    "84": {
+      "final_day": 85,
+      "cash": 9183,
+      "state_hash": "1345f9228afe0cfcab1f437fdba5572efc0ad0f0c875c2cd7d4fd0cdb7337006",
+      "log_hash": "4f8da389abb585b31851f1e6f90592084778f8f79455d1e25b75a6d498b974de"
+    }
+  }
+}

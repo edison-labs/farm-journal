@@ -1,0 +1,20 @@
+{
+  "name": "farm-journal",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "《田园日志》单机纯文字农牧场养成游戏",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "test:ui-main": "node --test tests/ui-main-path.test.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "balance": "node scripts/balance.mjs",
+    "simulate": "node scripts/simulate.mjs",
+    "evidence": "node scripts/generate-evidence.mjs",
+    "build": "node scripts/build.mjs",
+    "verify": "node scripts/check-content.mjs && node scripts/balance.mjs && node --test --test-concurrency=1 tests/*.test.mjs && node scripts/simulate.mjs && node scripts/build.mjs && node scripts/generate-evidence.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

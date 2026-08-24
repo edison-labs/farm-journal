@@ -1,0 +1,49 @@
+{
+  "fixture_kind": "internal_prerelease",
+  "save_version": 0,
+  "save_id": "save_internal_v0_fixture",
+  "save_seed": "internal-v0-seed",
+  "created_at": "2026-01-01T05:00:00.000Z",
+  "last_trusted_time": 1767243600000,
+  "timezone": "UTC",
+  "rollover_hour": 5,
+  "money": 1777,
+  "calendar": {
+    "absolute_day": 8,
+    "year": 1,
+    "season": "spring",
+    "season_day": 8,
+    "week_block": 1
+  },
+  "flags": {
+    "legacy_tutorial_seen": true
+  },
+  "inventory": {
+    "warehouse": {
+      "capacity": 120,
+      "lots": [
+        {
+          "lot_id": "legacy_lot_1",
+          "item_id": "item_old_feed_sack",
+          "quantity": 3,
+          "quality": 50,
+          "born_day": 8,
+          "age": 0,
+          "degraded_50": false,
+          "degraded_80": false,
+          "source": "internal_v0_fixture",
+          "reserved_for": null,
+          "historical_base_price": 10
+        }
+      ]
+    }
+  },
+  "modules": {
+    "unknown_future_module": {
+      "enabled": false,
+      "state": {
+        "opaque_value": "preserve-me"
+      }
+    }
+  }
+}
