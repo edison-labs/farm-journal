@@ -68,7 +68,7 @@ function randomToken() {
 const WP_CONSUMING_COMMANDS = new Set([
   "crop.plant", "crop.harvest", "crop.irrigate", "crop.irrigate_batch", "crop.weed", "crop.fertilize",
   "housing.clean", "housing.graze", "animal.interact", "animal.treat", "processing.queue",
-  "building.invest", "exploration.run", "resident.talk", "work.assign",
+  "building.invest", "exploration.run", "resident.talk",
 ]);
 
 const FIXED_WORK_COSTS = Object.freeze({
@@ -193,6 +193,28 @@ function itemName(id) { return ITEMS.find((item) => item.id === id)?.name ?? "�
 function cropName(id) { return CROPS.find((crop) => crop.id === id)?.name ?? "未知作物"; }
 function weatherName(id) { return WEATHER.find((weather) => weather.id === id)?.name ?? "待生成"; }
 function activeBuilding(id) { return state.buildings.some((building) => building.id === id && building.status === "complete"); }
+
+const WEATHER_GUIDANCE = Object.freeze({
+  weather_sunny: { status: "偏干", tone: "warning", effect: "没有降水，空田湿度减少 18；有作物的田区还会再消耗 5 点水。", advice: "湿度可能低于 35 时，安排“需要时灌溉”。" },
+  weather_cloudy: { status: "平稳", tone: "good", effect: "没有降水，空田湿度减少 10；有作物的田区还会再消耗 5 点水。", advice: "按田区湿度决定是否灌溉。" },
+  weather_light_rain: { status: "补水", tone: "good", effect: "空田湿度增加 24，有作物的田区增加 19；动物心情减少 1。", advice: "通常不用提前灌溉，先看田区当前湿度。" },
+  weather_heavy_rain: { status: "潮湿", tone: "warning", effect: "空田湿度增加 46，有作物的田区增加 41；动物心情减少 2，探索收获约少 20%。", advice: "不要额外灌溉，并留意湿度是否会超过 90。" },
+  weather_storm: { status: "危险", tone: "danger", effect: "田区会大量增湿；未防护的生长中作物额外掉 8 点健康，无防风圈舍的动物心情减少 5。", advice: "不要额外灌溉，优先检查作物防护和圈舍防风。" },
+  weather_heatwave: { status: "危险", tone: "danger", effect: "空田湿度减少 35，有作物的田区减少 40；湿度低于 45 的未防护作物额外掉 5 点健康。", advice: "提前安排“需要时灌溉”，并留意动物心情。" },
+  weather_fog: { status: "有雾", tone: "neutral", effect: "空田湿度减少 6，有作物的田区减少 11；探索时遇到事件的概率提高 20%。", advice: "田区照常照料；想找事件时可以去探索。" },
+  weather_snow: { status: "寒冷", tone: "neutral", effect: "空田湿度增加 11，有作物的田区增加 6；动物心情减少 1。", advice: "通常不用额外灌溉，留意动物状态。" },
+  weather_blizzard: { status: "危险", tone: "danger", effect: "田区会增湿；未防护的生长中作物额外掉 5 点健康，无防风圈舍的动物心情减少 6，生病风险也会升高。", advice: "检查作物防护和圈舍防风，恶劣天气不要放牧。" },
+  weather_cold_snap: { status: "危险", tone: "danger", effect: "田区会变干；没有温室且不抗寒的作物停止生长，无保温圈舍的动物心情减少 6。", advice: "检查温室和圈舍保温，留意作物是否停长。" },
+});
+
+function weatherDetails(weatherId, { tomorrow = false } = {}) {
+  const guide = WEATHER_GUIDANCE[weatherId] ?? { status: "待确认", tone: "neutral", effect: "天气信息尚未生成。", advice: "更新到今天后再查看。" };
+  const name = weatherName(weatherId);
+  return `<details class="weather-details ${tomorrow ? "weather-tomorrow" : "weather-current"}">
+    <summary><span class="weather-context">${tomorrow ? "明日" : "今天"}</span><strong class="weather-name">${esc(name)}</strong><span class="weather-state status-${guide.tone}">${guide.status}</span></summary>
+    <div class="weather-detail-body"><p>${esc(guide.effect)}</p><p class="meta"><strong>建议：</strong>${esc(guide.advice)}</p></div>
+  </details>`;
+}
 
 function localizeTechnicalText(value) {
   let output = String(value ?? "");
@@ -415,7 +437,18 @@ function renderNotice() {
 }
 
 function renderToday() {
-  const weather = weatherName(state.weather?.today_id);
+  const tomorrowWeatherId = state.weather?.forecast?.[0]?.weather_id;
+  const remainingWp = Math.max(0, state.work_plan.capacity - state.work_plan.used_wp);
+  const remainingFocus = Math.max(0, state.work_plan.focus_capacity - state.work_plan.used_focus);
+  const completedWork = state.work_plan.tasks.map((task) => {
+    const costs = [];
+    if (task.wp) costs.push(`${task.wp} WP`);
+    if (task.focus) costs.push(`${task.focus} 专注`);
+    const legacyPlan = task.source === "manual_plan";
+    const prefix = legacyPlan ? "旧版预留" : "✓";
+    const legacyAction = legacyPlan && !state.work_plan.confirmed ? commandButton("取消预留", "work.remove", { task_id: task.id }) : "";
+    return `<li>${prefix} ${esc(localizeTechnicalText(task.label))} <span class="meta">${costs.join(" / ") || "未消耗资源"}${legacyPlan && state.work_plan.confirmed ? " · 明天清空" : ""}</span> ${legacyAction}</li>`;
+  }).join("");
   const risks = [
     ...state.plots.filter((plot) => plot.crop && plot.crop.health < 40).map((plot) => `${plot.name}作物健康偏低`),
     ...state.animals.filter((animal) => animal.illness || animal.health < 60).map((animal) => `${animal.name}${animal.illness ? "出现异常" : "健康偏低"}`),
@@ -436,8 +469,8 @@ function renderToday() {
   return `${pageHeading("今日", "先看看情况，再安排今天的活。")}
     ${renderNotice()}
     <section class="grid" aria-label="今日摘要">
-      <article class="card"><h3>天气与田区</h3><p class="lead">${esc(weather)}</p><p>${state.plots.filter((plot) => plot.unlocked).map((plot) => `${esc(plot.name)} 湿度${Math.round(plot.moisture)} / 肥力${Math.round(plot.fertility)}`).join("<br>")}</p><p class="meta">明日 ${esc(weatherName(state.weather?.forecast?.[0]?.weather_id))}</p></article>
-      <article class="card"><h3>今天的安排 ${state.work_plan.confirmed ? "[已确认]" : "[可修改]"}</h3><ul class="plain-list">${state.work_plan.tasks.length ? state.work_plan.tasks.map((task) => `<li>✓ ${esc(localizeTechnicalText(task.label))} <span class="meta">${task.wp} WP${task.focus ? ` / 专注${task.focus}` : ""}</span> ${!state.work_plan.confirmed && task.source === "manual_plan" ? commandButton("移除", "work.remove", { task_id: task.id }) : ""}</li>`).join("") : "<li>今天还没安排工作。</li>"}</ul><form class="inline-form" data-command="work.assign"><label>要做什么<input name="label" value="整理经营记录"></label><label>WP<input name="wp" type="number" min="0" max="12" value="1"></label><label>专注<input name="focus" type="number" min="0" max="3" value="1"></label>${formWorkButton("加到安排里", { wp: 1, focus: 1, wpInput: "wp", focusInput: "focus", disabled: state.work_plan.confirmed })}</form><div class="actions">${commandButton("确认安排", "work.confirm", {}, { primary: true, disabled: state.work_plan.confirmed })}</div></article>
+      <article class="card weather-card"><h3>天气与田区</h3>${weatherDetails(state.weather?.today_id)}<p class="weather-plots">${state.plots.filter((plot) => plot.unlocked).map((plot) => `${esc(plot.name)} 湿度${Math.round(plot.moisture)} / 肥力${Math.round(plot.fertility)}`).join("<br>")}</p>${weatherDetails(tomorrowWeatherId, { tomorrow: true })}<p class="weather-help-link"><a href="./help.html#weather" target="_blank" rel="noopener">查看完整天气说明 →</a></p></article>
+      <article class="card"><h3>今日工时</h3><ul class="metric-list"><li><span>剩余工时</span><strong>${remainingWp} / ${state.work_plan.capacity} WP</strong></li><li><span>剩余专注</span><strong>${remainingFocus} / ${state.work_plan.focus_capacity}</strong></li></ul><h4 class="work-log-title">今天做过的事</h4><ul class="plain-list">${completedWork || "<li>还没有消耗工时的操作。</li>"}</ul><p class="meta">完成操作后会自动记在这里。</p></article>
       <article class="card"><h3>要留意的事</h3>${risks.length ? `<ul class="plain-list">${risks.map((risk) => `<li class="status-warning">${esc(risk)}</li>`).join("")}</ul>` : "<p class=\"status-good\">今天一切正常。</p>"}<div class="actions"><button type="button" data-special="sync">更新到今天</button><button type="button" data-special="weekly-summary">查看本周总结</button></div></article>
     </section>${financialRelief}<article class="card"><h3>未来3日工时预测</h3><ul class="plain-list">${workForecast}</ul></article>
     <form class="inline-form" data-command="work.set_priority"><label>托管时先做<select name="category"><option value="medical">医疗安全</option><option value="feeding">喂养</option><option value="harvest">成熟收获</option><option value="irrigation">灌溉</option><option value="construction">建设</option><option value="exploration">探索</option></select></label><label>优先值<input name="priority" type="number" min="0" max="120" value="50"></label><button>保存顺序</button></form>

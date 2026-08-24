@@ -65,8 +65,23 @@ main { min-height: calc(100vh - 6rem); max-width: 1180px; margin: 0 auto; paddin
 .card { background: var(--panel); border: 1px solid var(--line); padding: 1rem; min-width: 0; }
 .jump-target:focus { outline: 2px solid var(--accent); outline-offset: 3px; }
 .card h3 { margin: 0 0 .65rem; font-size: 1rem; letter-spacing: .04em; }
+.work-log-title { margin: .9rem 0 .2rem; font-size: .88rem; }
 .card p { margin: .35rem 0; }
 .card .lead { font-family: ui-serif, Georgia, serif; font-size: 1.15rem; }
+.weather-details { margin: 0; padding: 0; border: 0; }
+.weather-details + .weather-help-link { margin-top: .7rem; }
+.weather-details summary { display: flex; align-items: baseline; gap: .5rem; min-height: 2.4rem; padding: .35rem 0; list-style: none; }
+.weather-details summary::-webkit-details-marker { display: none; }
+.weather-details summary::after { content: "查看影响"; margin-left: auto; color: var(--muted); font-size: .72rem; font-weight: 500; }
+.weather-details[open] summary::after { content: "收起"; }
+.weather-current .weather-name { font-family: ui-serif, Georgia, serif; font-size: 1.35rem; font-weight: 500; }
+.weather-context { color: var(--muted); font-size: .78rem; font-weight: 500; }
+.weather-state { font-size: .75rem; font-weight: 800; }
+.weather-detail-body { margin: .15rem 0 .65rem; padding: .55rem .7rem; border-left: 3px solid var(--accent); background: var(--paper); }
+.weather-detail-body p { margin: 0; }
+.weather-detail-body p + p { margin-top: .25rem; }
+.weather-plots { padding: .6rem 0; border-top: 1px dotted var(--line); border-bottom: 1px dotted var(--line); }
+.weather-help-link a { font-size: .82rem; font-weight: 700; text-underline-offset: .16em; }
 .meta { color: var(--muted); font-size: .88rem; }
 .save-details { margin: 0; }
 .save-details > div { display: grid; grid-template-columns: minmax(5.5rem, .35fr) 1fr; gap: .75rem; padding: .45rem 0; border-bottom: 1px dotted var(--line); }
@@ -75,6 +90,7 @@ main { min-height: calc(100vh - 6rem); max-width: 1180px; margin: 0 auto; paddin
 .save-details code { color: var(--muted); overflow-wrap: anywhere; }
 .save-reset-note { margin-top: 1rem; }
 .status-good { color: var(--accent); }
+.status-neutral { color: var(--muted); }
 .status-warning { color: var(--warning); }
 .status-danger { color: var(--danger); }
 .actions { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .85rem; }

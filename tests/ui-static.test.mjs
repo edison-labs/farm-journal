@@ -155,7 +155,7 @@ test("全部会消耗WP的玩家操作在按钮内显示费用，动态输入同
   const expected = [
     "animal.interact", "animal.treat", "building.invest", "crop.fertilize", "crop.harvest",
     "crop.irrigate", "crop.irrigate_batch", "crop.plant", "crop.weed", "exploration.run",
-    "housing.clean", "housing.graze", "processing.queue", "resident.talk", "work.assign",
+    "housing.clean", "housing.graze", "processing.queue", "resident.talk",
   ];
   const setStart = source.indexOf("const WP_CONSUMING_COMMANDS");
   const setEnd = source.indexOf("const FIXED_WORK_COSTS");
@@ -169,7 +169,8 @@ test("全部会消耗WP的玩家操作在按钮内显示费用，动态输入同
     assert.match(source, new RegExp(`type === "${type.replaceAll(".", "\\.")}"`), `${type} must expose its conditional cost`);
   }
   assert.match(source, /formWorkButton\("播种 12 格", \{ wp: 1, primary: true \}\)/);
-  assert.match(source, /formWorkButton\("加到安排里", \{ wp: 1, focus: 1, wpInput: "wp", focusInput: "focus"/);
+  assert.doesNotMatch(source, /data-command="work\.assign"/);
+  assert.doesNotMatch(source, /data-command="work\.confirm"/);
   assert.match(source, /formWorkButton\("投入工时", \{ wp: investMaximum, focus: investFocus, wpInput: "wp" \}\)/);
   assert.match(source, /main\.addEventListener\("input"[\s\S]*?cost\.textContent = availability\.text/);
   assert.match(source, /wpDelta > 0[\s\S]*?消耗工时 \$\{wpDelta\} WP[\s\S]*?workCost: wpDelta > 0 \|\| focusDelta > 0/);
@@ -187,7 +188,7 @@ test("页头右上角问号入口打开可访问的玩家玩法说明", async ()
   assert.match(styles, /\.help-link \{[^}]*border-radius: 50%;[^}]*font-weight: 800;/);
   assert.match(styles, /\.help-link:hover, \.help-link:focus-visible \{[^}]*outline: 2px solid var\(--accent\);/);
   assert.match(help, /<title>玩法说明 · 田园日志<\/title>/);
-  assert.match(help, /<main id="help-content"[^>]*>[\s\S]*id="quick-start"[\s\S]*id="resources"[\s\S]*id="pages"[\s\S]*id="day-change"[\s\S]*id="controls"[\s\S]*id="saving"/);
+  assert.match(help, /<main id="help-content"[^>]*>[\s\S]*id="quick-start"[\s\S]*id="resources"[\s\S]*id="weather"[\s\S]*id="pages"[\s\S]*id="day-change"[\s\S]*id="controls"[\s\S]*id="saving"/);
   assert.match(help, /<a class="help-back" href="\.\/index\.html">返回田园日志<\/a>/);
   assert.match(build, /\["index\.html", "help\.html", "README\.md", "src"\]/);
   assert.match(build, /helpMatch[\s\S]*?玩法说明入口/);

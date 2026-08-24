@@ -31,13 +31,30 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   ]) assert.ok(app.includes(copy), `缺少主路径文案：${copy}`);
 
   for (const action of [
-    "更新到今天", "查看本周总结", "加到安排里", "确认安排", "保存顺序",
+    "更新到今天", "查看本周总结", "保存顺序",
     "需要时灌溉", "买肥料并施肥", "播种 12 格", "给缺水田区灌溉",
     "治疗", "陪它玩", "送走动物", "清理圈舍", "去放牧",
     "放入出售箱", "撤回", "开始加工", "接单", "给订单补货",
     "聊一聊", "送礼物", "开始建设", "投入工时", "取消建设",
     "保存", "更改时区", "导出备份",
   ]) assert.ok(app.includes(action), `缺少简单操作名：${action}`);
+
+  for (const workCopy of ["今日工时", "剩余工时", "剩余专注", "今天做过的事", "完成操作后会自动记在这里。", "取消预留"]) {
+    assert.ok(app.includes(workCopy), `今日工时缺少：${workCopy}`);
+  }
+  assert.doesNotMatch(app, /data-command="work\.assign"/);
+  assert.doesNotMatch(app, /data-command="work\.confirm"/);
+  for (const removedCopy of ["要做什么", "整理经营记录", "加到安排里", "确认安排"]) assert.equal(app.includes(removedCopy), false, `已移除的手动日程仍在页面：${removedCopy}`);
+  assert.match(help, /看看做过哪些事，以及还剩多少 WP 和专注/);
+  assert.match(app, /function weatherDetails\(weatherId, \{ tomorrow = false \} = \{\}\)/);
+  assert.match(app, /class="weather-details \$\{tomorrow \? "weather-tomorrow" : "weather-current"\}"/);
+  assert.match(app, /href="\.\/help\.html#weather"[^>]*>查看完整天气说明 →<\/a>/);
+  assert.match(styles, /\.weather-details summary \{[^}]*display: flex;/);
+  assert.match(styles, /\.weather-details summary::after \{ content: "查看影响";/);
+  assert.match(help, /<section id="weather">[\s\S]*晴朗[\s\S]*多云[\s\S]*小雨[\s\S]*大雨[\s\S]*风暴[\s\S]*高温[\s\S]*雾[\s\S]*小雪[\s\S]*暴雪[\s\S]*寒潮/);
+  for (const weatherId of ["sunny", "cloudy", "light_rain", "heavy_rain", "storm", "heatwave", "fog", "snow", "blizzard", "cold_snap"]) {
+    assert.match(app, new RegExp(`weather_${weatherId}:`), `缺少天气说明：${weatherId}`);
+  }
 
   for (const oldCopy of [
     "阅读日报、处理异常", "以田区为单位批量", "每只动物都有稳定身份",
@@ -94,7 +111,7 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.equal(saveStore.save(saveState, { now: Date.parse(expectedSavedAt) }).written_at, expectedSavedAt);
   assert.equal(saveStore.load().written_at, expectedSavedAt);
   assert.match(html, /aria-label="打开玩法说明（新窗口）"/);
-  for (const section of ["quick-start", "resources", "pages", "day-change", "controls", "saving"]) {
+  for (const section of ["quick-start", "resources", "weather", "pages", "day-change", "controls", "saving"]) {
     assert.match(help, new RegExp(`id="${section}"`), `玩法说明缺少章节：${section}`);
   }
   assert.match(help, /按钮上会直接写明要花多少 WP/);
