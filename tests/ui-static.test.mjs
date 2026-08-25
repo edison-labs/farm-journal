@@ -188,7 +188,7 @@ test("页头右上角问号入口打开可访问的玩家玩法说明", async ()
   assert.match(styles, /\.help-link \{[^}]*border-radius: 50%;[^}]*font-weight: 800;/);
   assert.match(styles, /\.help-link:hover, \.help-link:focus-visible \{[^}]*outline: 2px solid var\(--accent\);/);
   assert.match(help, /<title>玩法说明 · 田园日志<\/title>/);
-  assert.match(help, /<main id="help-content"[^>]*>[\s\S]*id="quick-start"[\s\S]*id="resources"[\s\S]*id="weather"[\s\S]*id="pages"[\s\S]*id="day-change"[\s\S]*id="controls"[\s\S]*id="saving"/);
+  assert.match(help, /<main id="help-content"[^>]*>[\s\S]*id="quick-start"[\s\S]*id="unlocking"[\s\S]*id="resources"[\s\S]*id="weather"[\s\S]*id="pages"[\s\S]*id="day-change"[\s\S]*id="controls"[\s\S]*id="saving"/);
   assert.match(help, /<a class="help-back" href="\.\/index\.html">返回田园日志<\/a>/);
   assert.match(build, /\["index\.html", "help\.html", "README\.md", "src"\]/);
   assert.match(build, /helpMatch[\s\S]*?玩法说明入口/);

@@ -1,8 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { executeCommand } from "../src/core/engine.js";
 import { createNewSave } from "../src/core/state.js";
 import { MemoryStorage, SaveStore } from "../src/persistence/store.js";
+import { ALL_PAGE_IDS, availablePages, onboardingProgress } from "../src/presentation/progression.js";
 
 test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持简单可用", async () => {
   const [html, app, labels, help, styles, build] = await Promise.all([
@@ -18,7 +20,7 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
     assert.match(html, new RegExp(`data-page="[^"]+"[^>]*>${page}<`), `${page}入口必须存在`);
   }
   for (const copy of [
-    "先看看情况，再安排今天的活。",
+    "先看看情况，再做今天最重要的事。",
     "在这里播种、照料和收获。",
     "看看它们的状态，陪伴并照顾它们。",
     "查看库存，把要卖的东西放进出售箱。",
@@ -111,9 +113,35 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.equal(saveStore.save(saveState, { now: Date.parse(expectedSavedAt) }).written_at, expectedSavedAt);
   assert.equal(saveStore.load().written_at, expectedSavedAt);
   assert.match(html, /aria-label="打开玩法说明（新窗口）"/);
-  for (const section of ["quick-start", "resources", "weather", "pages", "day-change", "controls", "saving"]) {
+  for (const section of ["quick-start", "unlocking", "resources", "weather", "pages", "day-change", "controls", "saving"]) {
     assert.match(help, new RegExp(`id="${section}"`), `玩法说明缺少章节：${section}`);
   }
+  for (const copy of ["第一次玩", "先完成这两步", "播种第一块田", "陪一只动物", "功能会怎么开放？"]) {
+    assert.ok(app.includes(copy), `新手引导缺少：${copy}`);
+  }
+  assert.match(app, /state\.flags\.progressive_navigation = true/);
+  assert.match(app, /button\.hidden = !available/);
+  assert.match(app, /新功能已开放：/);
+
+  const legacyState = createNewSave({ now: Date.parse("2026-08-20T04:00:00Z"), timezone: "Asia/Dubai", save_seed: "legacy-navigation", save_id: "legacy_navigation" });
+  assert.deepEqual([...availablePages(legacyState)], [...ALL_PAGE_IDS], "旧存档应保留全部页面");
+
+  let guidedState = createNewSave({ now: Date.parse("2026-08-20T04:00:00Z"), timezone: "Asia/Dubai", save_seed: "guided-navigation", save_id: "guided_navigation" });
+  guidedState.flags.progressive_navigation = true;
+  assert.deepEqual([...availablePages(guidedState)].sort(), ["animals", "plots", "settings", "today"], "新存档只显示起步页面");
+  assert.deepEqual(onboardingProgress(guidedState), { planted: false, caredForAnimal: false });
+
+  guidedState = executeCommand(guidedState, { action_id: "guide-plant", type: "crop.plant", payload: { plot_id: "plot_a", crop_id: "crop_turnip" } }).state;
+  assert.equal(availablePages(guidedState).has("warehouse"), true);
+  assert.equal(availablePages(guidedState).has("market"), true);
+  assert.equal(availablePages(guidedState).has("town"), false);
+  assert.deepEqual(onboardingProgress(guidedState), { planted: true, caredForAnimal: false });
+
+  guidedState = executeCommand(guidedState, { action_id: "guide-animal", type: "animal.interact", payload: { animal_id: "animal_hen_amber" } }).state;
+  assert.deepEqual(onboardingProgress(guidedState), { planted: true, caredForAnimal: true });
+  guidedState.calendar.absolute_day = 2;
+  assert.equal(availablePages(guidedState).has("town"), true);
+  assert.equal(availablePages(guidedState).has("logs"), true);
   assert.match(help, /按钮上会直接写明要花多少 WP/);
   assert.match(labels, /today: "先看看今天"/);
   assert.match(build, /\["index\.html", "help\.html", "README\.md", "src"\]/);

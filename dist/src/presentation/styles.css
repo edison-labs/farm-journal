@@ -63,6 +63,21 @@ main { min-height: calc(100vh - 6rem); max-width: 1180px; margin: 0 auto; paddin
 .page-heading p { margin: 0; color: var(--muted); }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
 .card { background: var(--panel); border: 1px solid var(--line); padding: 1rem; min-width: 0; }
+.onboarding-card { margin-bottom: 1rem; border-left: 4px solid var(--accent); background: var(--accent-soft); }
+.onboarding-card > h2 { margin: .1rem 0 .35rem; font-family: ui-serif, Georgia, serif; font-size: 1.65rem; font-weight: 500; }
+.onboarding-goals { display: grid; gap: .6rem; margin: 1rem 0; padding: 0; list-style: none; counter-reset: none; }
+.onboarding-goals li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: .75rem; padding: .75rem; border: 1px solid var(--line); background: var(--panel); }
+.onboarding-goals li.goal-current { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.onboarding-goals li.goal-locked { color: var(--muted); }
+.goal-marker { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid currentColor; border-radius: 50%; font-weight: 800; }
+.goal-done .goal-marker { border-color: var(--accent); background: var(--accent); color: #fff; }
+.onboarding-goals p { color: var(--muted); font-size: .88rem; }
+.goal-state { color: var(--accent); font-size: .85rem; font-weight: 800; }
+.feature-roadmap { margin-top: .75rem; }
+.onboarding-card .feature-roadmap { border-top-color: rgb(73 100 81 / .35); }
+.unlock-list { display: grid; gap: .25rem; margin: .6rem 0 0; padding: 0; list-style: none; }
+.unlock-list li { display: grid; grid-template-columns: 1.25rem minmax(7rem, .45fr) 1fr; gap: .4rem; color: var(--muted); }
+.unlock-list li.unlock-done { color: var(--accent); }
 .jump-target:focus { outline: 2px solid var(--accent); outline-offset: 3px; }
 .card h3 { margin: 0 0 .65rem; font-size: 1rem; letter-spacing: .04em; }
 .work-log-title { margin: .9rem 0 .2rem; font-size: .88rem; }
@@ -159,6 +174,10 @@ html.compact .grid { gap: .55rem; }
   .main-nav button { flex: 0 0 auto; }
   .keyboard-hint { display: none; }
   .page-heading { align-items: start; flex-direction: column; }
+  .onboarding-goals li { grid-template-columns: 2rem minmax(0, 1fr); }
+  .onboarding-goals button, .onboarding-goals .goal-state { grid-column: 2; justify-self: start; }
+  .unlock-list li { grid-template-columns: 1.25rem 1fr; }
+  .unlock-list li span:last-child { grid-column: 2; }
   .help-content nav ul { columns: 1; }
   .save-details > div { grid-template-columns: 1fr; gap: .1rem; }
 }

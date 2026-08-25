@@ -6,6 +6,7 @@ import { calendarLabel } from "../core/utils.js";
 import { SaveStore } from "../persistence/store.js";
 import { storageUsed } from "../rules/inventory.js";
 import { priceLots, qualityTier } from "../rules/economy.js";
+import { PAGE_NAMES, availablePages, newlyAvailablePages, onboardingProgress } from "./progression.js";
 import {
   COMMAND_LABELS,
   animalLifeStageLabel,
@@ -154,6 +155,15 @@ function formWorkButton(label, { wp = 0, focus = 0, wpInput = "", focusInput = "
 
 function pageHeading(title, description) {
   return `<header class="page-heading"><div><p class="eyebrow">${esc(pageSectionLabel(page))}</p><h2>${esc(title)}</h2></div><p>${esc(description)}</p></header>`;
+}
+
+function isPageAvailable(pageId, snapshot = state) {
+  return availablePages(snapshot).has(pageId);
+}
+
+function unlockedPageMessage(beforeState, afterState) {
+  const unlocked = newlyAvailablePages(beforeState, afterState).map((pageId) => PAGE_NAMES[pageId]);
+  return unlocked.length ? ` 新功能已开放：${unlocked.join("、")}。` : "";
 }
 
 function formatSaveTime(value) {
@@ -436,6 +446,35 @@ function renderNotice() {
   return `<div class="notice action-notice ${message.kind === "error" ? "warning" : ""}">${esc(message.text)}</div>`;
 }
 
+function featureRoadmap() {
+  const pages = availablePages(state);
+  const items = [
+    { done: pages.has("warehouse") && pages.has("market"), pages: "仓库、市场", when: "播种后开放" },
+    { done: pages.has("town") && pages.has("logs"), pages: "小镇、日志", when: "进入第 2 日后开放" },
+    { done: pages.has("tasks"), pages: "待办", when: "出现事件、订单或工程时开放" },
+    { done: pages.has("processing"), pages: "加工", when: "修好加工坊后开放" },
+  ];
+  return `<ul class="unlock-list">${items.map((item) => `<li class="${item.done ? "unlock-done" : ""}"><span aria-hidden="true">${item.done ? "✓" : "○"}</span><strong>${item.pages}</strong><span>${item.done ? "已开放" : item.when}</span></li>`).join("")}</ul>`;
+}
+
+function renderOnboarding() {
+  if (state.flags?.progressive_navigation !== true) return "";
+  const progress = onboardingProgress(state);
+  const complete = progress.planted && progress.caredForAnimal;
+  if (complete) return `<details class="card feature-roadmap"><summary>接下来会开放什么？</summary>${featureRoadmap()}</details>`;
+
+  return `<section class="card onboarding-card" aria-labelledby="onboarding-title">
+    <p class="eyebrow">第一次玩</p>
+    <h2 id="onboarding-title">先完成这两步</h2>
+    <p>经营农场，用每天有限的 WP 种植、照顾动物、加工和赚钱。操作成功后会自动保存。</p>
+    <ol class="onboarding-goals">
+      <li class="${progress.planted ? "goal-done" : "goal-current"}"><span class="goal-marker" aria-hidden="true">${progress.planted ? "✓" : "1"}</span><div><strong>播种第一块田</strong><p>先种芜菁，4 个牧场日后可以收获。</p></div>${progress.planted ? '<span class="goal-state">已完成</span>' : '<button type="button" class="primary" data-special="onboarding-page" data-page-target="plots" data-focus-command="crop.plant">去播种 →</button>'}</li>
+      <li class="${progress.caredForAnimal ? "goal-done" : progress.planted ? "goal-current" : "goal-locked"}"><span class="goal-marker" aria-hidden="true">${progress.caredForAnimal ? "✓" : "2"}</span><div><strong>陪一只动物</strong><p>${progress.planted ? "去看看开局自带的 3 只鸡。" : "完成播种后再做这一步。"}</p></div>${progress.caredForAnimal ? '<span class="goal-state">已完成</span>' : progress.planted ? '<button type="button" class="primary" data-special="onboarding-page" data-page-target="animals" data-focus-command="animal.interact">去陪动物 →</button>' : ""}</li>
+    </ol>
+    <details class="feature-roadmap" open><summary>功能会怎么开放？</summary>${featureRoadmap()}</details>
+  </section>`;
+}
+
 function renderToday() {
   const tomorrowWeatherId = state.weather?.forecast?.[0]?.weather_id;
   const remainingWp = Math.max(0, state.work_plan.capacity - state.work_plan.used_wp);
@@ -466,12 +505,13 @@ function renderToday() {
   }).join("");
   const financialRelief = state.flags.financial_relief_due ? `<article class="card"><h3>七日低息周转</h3><p>可取得500 G；第7牧场日一次偿还510 G，不复利。无法全额偿还时现金保持非负、剩余欠款冻结，不再加息。</p><div class="actions">${commandButton("接受周转", "finance.accept_bridge", {}, { primary: true })}${commandButton("暂不使用", "finance.decline_bridge", {})}</div></article>` : "";
   const workForecast = state.work_plan.forecast.map((entry) => `<li>未来${entry.distance}日：预计${entry.expected_wp}/${state.work_plan.capacity} WP · 收获${entry.harvest_wp} · 天气不确定性${entry.weather_uncertainty}${entry.over_capacity ? " [超载]" : ""}<br><span class="meta">${esc(entry.suggestion)}</span></li>`).join("");
-  return `${pageHeading("今日", "先看看情况，再安排今天的活。")}
+  return `${pageHeading("今日", "先看看情况，再做今天最重要的事。")}
     ${renderNotice()}
+    ${renderOnboarding()}
     <section class="grid" aria-label="今日摘要">
       <article class="card weather-card"><h3>天气与田区</h3>${weatherDetails(state.weather?.today_id)}<p class="weather-plots">${state.plots.filter((plot) => plot.unlocked).map((plot) => `${esc(plot.name)} 湿度${Math.round(plot.moisture)} / 肥力${Math.round(plot.fertility)}`).join("<br>")}</p>${weatherDetails(tomorrowWeatherId, { tomorrow: true })}<p class="weather-help-link"><a href="./help.html#weather" target="_blank" rel="noopener">查看完整天气说明 →</a></p></article>
       <article class="card"><h3>今日工时</h3><ul class="metric-list"><li><span>剩余工时</span><strong>${remainingWp} / ${state.work_plan.capacity} WP</strong></li><li><span>剩余专注</span><strong>${remainingFocus} / ${state.work_plan.focus_capacity}</strong></li></ul><h4 class="work-log-title">今天做过的事</h4><ul class="plain-list">${completedWork || "<li>还没有消耗工时的操作。</li>"}</ul><p class="meta">完成操作后会自动记在这里。</p></article>
-      <article class="card"><h3>要留意的事</h3>${risks.length ? `<ul class="plain-list">${risks.map((risk) => `<li class="status-warning">${esc(risk)}</li>`).join("")}</ul>` : "<p class=\"status-good\">今天一切正常。</p>"}<div class="actions"><button type="button" data-special="sync">更新到今天</button><button type="button" data-special="weekly-summary">查看本周总结</button></div></article>
+      <article class="card"><h3>要留意的事</h3>${risks.length ? `<ul class="plain-list">${risks.map((risk) => `<li class="status-warning">${esc(risk)}</li>`).join("")}</ul>` : "<p class=\"status-good\">今天一切正常。</p>"}<div class="actions"><button type="button" data-special="sync">更新到今天</button>${isPageAvailable("logs") ? '<button type="button" data-special="weekly-summary">查看本周总结</button>' : ""}</div></article>
     </section>${financialRelief}<article class="card"><h3>未来3日工时预测</h3><ul class="plain-list">${workForecast}</ul></article>
     <form class="inline-form" data-command="work.set_priority"><label>托管时先做<select name="category"><option value="medical">医疗安全</option><option value="feeding">喂养</option><option value="harvest">成熟收获</option><option value="irrigation">灌溉</option><option value="construction">建设</option><option value="exploration">探索</option></select></label><label>优先值<input name="priority" type="number" min="0" max="120" value="50"></label><button>保存顺序</button></form>
     <h2>今天的事件</h2>
@@ -520,7 +560,10 @@ function plotMetric(name, value) {
 function renderPlots() {
   const cards = state.plots.map((plot) => {
     const crop = plot.crop;
-    const actions = !plot.unlocked ? `<p class="meta">尚未开垦。<a class="inline-link" href="#building-build_plot_b" data-special="go-building" data-building-id="build_plot_b">去小镇开垦 →</a></p>` : crop ? `<div class="actions">
+    const openPlotHint = isPageAvailable("town")
+      ? '<a class="inline-link" href="#building-build_plot_b" data-special="go-building" data-building-id="build_plot_b">去小镇开垦 →</a>'
+      : "第 2 日开放小镇后，可以在那里开垦。";
+    const actions = !plot.unlocked ? `<p class="meta">尚未开垦。${openPlotHint}</p>` : crop ? `<div class="actions">
       ${commandButton("需要时灌溉", "crop.irrigate", { plot_id: plot.plot_id })}
       ${commandButton("除草", "crop.weed", { plot_id: plot.plot_id })}
       ${plot.fertility >= 100 ? '<span class="action-state status-good">肥力已满，无需施肥</span>' : commandButton("买肥料并施肥", "crop.fertilize", { plot_id: plot.plot_id, use_compost: false })}
@@ -656,7 +699,13 @@ function renderSettings() {
 function render(focusContext = captureRenderFocus()) {
   applySettings();
   renderStatus();
-  for (const button of nav.querySelectorAll("button")) button.setAttribute("aria-current", button.dataset.page === page ? "page" : "false");
+  const pages = availablePages(state);
+  if (!pages.has(page)) page = "today";
+  for (const button of nav.querySelectorAll("button")) {
+    const available = pages.has(button.dataset.page);
+    button.hidden = !available;
+    button.setAttribute("aria-current", available && button.dataset.page === page ? "page" : "false");
+  }
   revealCurrentNavigation();
   const renderers = { today: renderToday, plots: renderPlots, animals: renderAnimals, warehouse: renderWarehouse, processing: renderProcessing, market: renderMarket, town: renderTown, tasks: renderTasks, logs: renderLogs, settings: renderSettings };
   main.innerHTML = renderers[page]();
@@ -701,10 +750,12 @@ async function runCommand(type, data, danger = null, focusContext = captureRende
     if (danger && !(await confirmAction(danger))) return;
     const commandPayload = { ...data };
     if (danger) commandPayload.confirmed = true;
+    const beforeState = state;
     const result = executeCommand(state, { action_id: randomToken(), type, payload: commandPayload });
     state = result.state;
     const encounter = result.receipt.result?.event;
-    setMessage(encounter ? `发现“${encounter.title}”，已经放进待办。` : `${commandLabel(type)}完成了，已经保存。`);
+    const resultMessage = encounter ? `发现“${encounter.title}”，已经放进待办。` : `${commandLabel(type)}完成了，已经保存。`;
+    setMessage(`${resultMessage}${unlockedPageMessage(beforeState, state)}`);
     saveAndRender(focusContext);
   } catch (error) {
     setMessage(userFacingError(error), "error");
@@ -720,7 +771,7 @@ function filterCurrentPage() {
 
 nav.addEventListener("click", (event) => {
   const button = event.target.closest("[data-page]");
-  if (!button) return;
+  if (!button || !isPageAvailable(button.dataset.page)) return;
   const pageWasScrolled = window.scrollY > 1;
   page = button.dataset.page;
   clearMessage();
@@ -738,15 +789,31 @@ main.addEventListener("click", async (event) => {
   const special = event.target.closest("[data-special]");
   if (!special) return;
   const focusContext = captureRenderFocus(main, special);
+  if (special.dataset.special === "onboarding-page") {
+    const targetPage = special.dataset.pageTarget;
+    if (!isPageAvailable(targetPage)) return;
+    page = targetPage;
+    clearMessage();
+    render(null);
+    const command = special.dataset.focusCommand;
+    const target = main.querySelector(`form[data-command="${command}"] button, button[data-command="${command}"]`);
+    focusPageTarget(target ?? main);
+    return;
+  }
   if (special.dataset.special === "sync") {
     try {
+      const beforeState = state;
       const result = synchronizeCommand(state, Date.now());
       state = result.state;
-      setMessage(result.locked ? result.reason : result.advanced ? `已经过了${result.active_days}个活跃日，休整了${result.rest_days}日。` : "已经是今天，不用重复更新。", result.locked ? "error" : "good");
+      const resultMessage = result.locked ? result.reason : result.advanced ? `已经过了${result.active_days}个活跃日，休整了${result.rest_days}日。` : "已经是今天，不用重复更新。";
+      setMessage(`${resultMessage}${unlockedPageMessage(beforeState, state)}`, result.locked ? "error" : "good");
       saveAndRender(focusContext);
     } catch (error) { setMessage(userFacingError(error, "现实日期核对失败，请稍后重试。"), "error"); render(focusContext); }
   }
-  if (special.dataset.special === "weekly-summary") { page = "logs"; setMessage("已打开本周总结。", "good"); render(null); focusPageStart(); }
+  if (special.dataset.special === "weekly-summary") {
+    if (!isPageAvailable("logs")) { setMessage("日志会在第 2 日开放。", "good"); render(focusContext); return; }
+    page = "logs"; setMessage("已打开本周总结。", "good"); render(null); focusPageStart();
+  }
   if (special.dataset.special === "export") {
     const blob = new Blob([recoveryDiagnostic ? store.exportDiagnostics() : store.export(state)], { type: "application/json" });
     const link = document.createElement("a");
@@ -759,6 +826,7 @@ main.addEventListener("click", async (event) => {
   if (special.dataset.special === "choose-import") document.querySelector("#import-save")?.click();
   if (special.dataset.special === "go-building") {
     event.preventDefault();
+    if (!isPageAvailable("town")) { setMessage("小镇会在第 2 日开放。", "good"); render(focusContext); return; }
     page = "town";
     clearMessage();
     render(null);
@@ -827,6 +895,7 @@ main.addEventListener("submit", async (event) => {
     try {
       const options = validateNewSaveOptions(form.elements.timezone.value, form.elements.rollover_hour.value);
       state = createNewSave({ now: Date.now(), ...options, save_seed: randomToken() });
+      state.flags.progressive_navigation = true;
       recoveryDiagnostic = false; page = "today";
       setMessage(`新存档已创建：${options.timezone}，每日${options.rollover_hour}:00刷新。`, "good");
       saveAndRender(focusContext);
@@ -893,7 +962,10 @@ document.addEventListener("keydown", (event) => {
   }
   if (event.key === "/" && !editing) { event.preventDefault(); focusSearch(); }
   if (!editing && event.key.toLowerCase() === "g") { page = "today"; clearMessage(); render(null); focusPageStart(); }
-  if (!editing && event.key.toLowerCase() === "l") { page = "logs"; clearMessage(); render(null); focusPageStart(); }
+  if (!editing && event.key.toLowerCase() === "l") {
+    if (isPageAvailable("logs")) { page = "logs"; clearMessage(); render(null); focusPageStart(); }
+    else { setMessage("日志会在第 2 日开放。", "good"); render(); }
+  }
   if (!editing && /^[1-9]$/.test(event.key)) {
     const target = main.querySelector(`[data-shortcut="${event.key}"]`);
     if (target) {
