@@ -122,6 +122,9 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.match(app, /state\.flags\.progressive_navigation = true/);
   assert.match(app, /button\.hidden = !available/);
   assert.match(app, /新功能已开放：/);
+  assert.match(app, /function focusNewSaveSetup\(\)[\s\S]*focusPageStart\(\);[\s\S]*input\[name="timezone"\]/);
+  assert.match(app, /special\.dataset\.special === "reset"[\s\S]*renderNewSaveSetup\([^;]+, null\);[\s\S]*focusNewSaveSetup\(\);/);
+  assert.match(app, /新存档已创建：[\s\S]*saveAndRender\(null\);[\s\S]*focusPageStart\(\);/);
 
   const legacyState = createNewSave({ now: Date.parse("2026-08-20T04:00:00Z"), timezone: "Asia/Dubai", save_seed: "legacy-navigation", save_id: "legacy_navigation" });
   assert.deepEqual([...availablePages(legacyState)], [...ALL_PAGE_IDS], "旧存档应保留全部页面");

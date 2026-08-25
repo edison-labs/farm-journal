@@ -404,6 +404,11 @@ function focusPageTarget(target) {
   window.scrollTo({ top: Math.max(0, targetTop - stickyHeaderHeight - 12), behavior: "auto" });
 }
 
+function focusNewSaveSetup() {
+  focusPageStart();
+  focusWithoutScroll(main.querySelector('input[name="timezone"]') ?? main);
+}
+
 function focusSearch() {
   focusWithoutScroll(search);
   search.scrollIntoView({ block: "center", inline: "nearest", behavior: "auto" });
@@ -879,7 +884,8 @@ main.addEventListener("click", async (event) => {
   }
   if (special.dataset.special === "reset") {
     if (!(await confirmAction(special.dataset.danger))) return;
-    renderNewSaveSetup("替换当前进度前，请重新确认锁定时区与刷新点；提交后才会覆盖存档。", focusContext);
+    renderNewSaveSetup("替换当前进度前，请重新确认锁定时区与刷新点；提交后才会覆盖存档。", null);
+    focusNewSaveSetup();
   }
 });
 
@@ -898,11 +904,13 @@ main.addEventListener("submit", async (event) => {
       state.flags.progressive_navigation = true;
       recoveryDiagnostic = false; page = "today";
       setMessage(`新存档已创建：${options.timezone}，每日${options.rollover_hour}:00刷新。`, "good");
-      saveAndRender(focusContext);
+      saveAndRender(null);
+      focusPageStart();
     } catch (error) {
       const errorMessage = userFacingError(error, "无法创建新存档，请检查时区与刷新点。" );
       setMessage(errorMessage, "error");
-      renderNewSaveSetup(errorMessage, focusContext);
+      renderNewSaveSetup(errorMessage, null);
+      focusNewSaveSetup();
     }
     return;
   }
