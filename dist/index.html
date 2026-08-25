@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="单机纯文字农牧场养成游戏《田园日志》">
   <title>田园日志</title>
-  <link rel="stylesheet" href="./src/presentation/styles.css">
+  <link rel="stylesheet" href="./src/presentation/styles.css?v=0.3.0">
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -17,7 +17,10 @@
         <h1>田园日志</h1>
       </div>
       <div class="header-tools">
-        <a class="help-link" href="./help.html" target="_blank" rel="noopener" aria-label="打开玩法说明（新窗口）" title="玩法说明"><span aria-hidden="true">?</span></a>
+        <div class="header-actions">
+          <button id="update-entry" class="update-entry" type="button" hidden>有新版本</button>
+          <a class="help-link" href="./help.html" target="_blank" rel="noopener" aria-label="打开玩法说明（新窗口）" title="玩法说明"><span aria-hidden="true">?</span></a>
+        </div>
         <div id="status-strip" class="status-strip" aria-label="牧场状态"></div>
       </div>
     </header>
@@ -54,6 +57,6 @@
       </div>
     </form>
   </dialog>
-  <script type="module" src="./src/presentation/app.js"></script>
+  <script type="module" src="./src/presentation/app.js?v=0.3.0"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import { validateState } from "../core/state.js";
+import { SAVE_VERSION, validateState } from "../core/state.js";
 import { canonicalStringify, compressText, decompressText, deepClone, sha256 } from "../core/utils.js";
 import { migrateSave } from "./migrations.js";
 
@@ -154,7 +154,7 @@ export class SaveStore {
       try {
         const raw = this.storage.getItem(this.key(`slot:${slot}`));
         const parsed = parseEnvelope(raw);
-        if (parsed.source_version !== 1) {
+        if (parsed.source_version !== SAVE_VERSION) {
           const signature = sha256(raw);
           if (this.storage.getItem(this.key("backup:last-migration-signature")) !== signature) {
             this.preserveRawBackup(`pre-migration-v${parsed.source_version}-to-v1`);

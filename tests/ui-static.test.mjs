@@ -82,7 +82,7 @@ test("TC-053 只有一个实时播报器，失效消息可清理且相同文本�
   assert.equal((html.match(/role="status"/g) ?? []).length, 1);
   assert.match(html, /id="live-region"[^>]*role="status"[^>]*aria-live="polite"[^>]*aria-atomic="true"/);
   assert.doesNotMatch(source, /function renderNotice\(\)[\s\S]*?role="status"[\s\S]*?\n}/);
-  assert.match(source, /function clearMessage\(\) \{\s*message = null;\s*announce\(""\);\s*}/);
+  assert.match(source, /function clearMessage\(\) \{[\s\S]*messageDismissTimer[\s\S]*message = null;\s*announce\(""\);\s*}/);
   assert.match(source, /setMessage\(`先看看结果：\$\{eventPreview\.summary\}。确认后才会执行。`/);
 
   const start = source.indexOf("function announce(text)");

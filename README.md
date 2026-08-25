@@ -33,6 +33,8 @@ npm run evidence
 
 `npm run verify` 依次执行完整的自动化准出检查。构建产物位于 `dist/`，可直接由静态服务器托管；`evidence/release-manifest.json` 用逐文件 SHA-256 和发布包哈希冻结该构建。TC-052/053 的真实浏览器与辅助技术流程见 `evidence/TC-052-053-manual-protocol.md`，TC-055 的 20 人受试流程见 `evidence/TC-055-usability-protocol.md`。这些人工项完成并签署前，自动化通过不等于整体正式准出；仓库不伪造人工或受试者结果。
 
+发布新版时，同时更新 `package.json` 与 `src/presentation/version.js` 中的版本号，再运行 `npm run build` 并完整部署 `dist/`。构建会生成 `dist/app-version.json`，并为入口脚本和样式加版本参数；已有客户端发现更高版本后会显示主动更新入口。这个入口负责保存本机存档并加载服务器上已经发布的新版，不代替服务器部署。
+
 黄金回放采用显式版本化：`fixtures/golden-replays-v1.json` 永久保留为内容机械化前的历史基线，当前 V0.2.0 实现由 `golden-replays-v2.json` 冻结。基线升级必须新增文件并记录首次分歧原因，不能覆盖历史文件。
 
 ## 存档兼容

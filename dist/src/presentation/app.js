@@ -7,6 +7,7 @@ import { SaveStore } from "../persistence/store.js";
 import { storageUsed } from "../rules/inventory.js";
 import { priceLots, qualityTier } from "../rules/economy.js";
 import { PAGE_NAMES, availablePages, newlyAvailablePages, onboardingProgress } from "./progression.js";
+import { APP_RELEASE_NOTES, APP_VERSION, isVersionNewer } from "./version.js";
 import {
   COMMAND_LABELS,
   animalLifeStageLabel,
@@ -30,6 +31,7 @@ const search = document.querySelector("#global-search");
 const live = document.querySelector("#live-region");
 const dialog = document.querySelector("#confirm-dialog");
 const dialogMessage = document.querySelector("#confirm-message");
+const updateEntry = document.querySelector("#update-entry");
 const store = new SaveStore(localStorage);
 
 let page = "today";
@@ -38,10 +40,46 @@ let message = null;
 let recoveryDiagnostic = false;
 let eventPreview = null;
 let liveAnnouncementTimer = null;
+let messageDismissTimer = null;
 let lastSavedAt = null;
+let availableUpdate = null;
 
 const IMPORT_FAILURE_MESSAGE = "备份导入失败：文件内容无效或与当前版本不兼容。";
 const RECOVERY_FAILURE_MESSAGE = "存档进入只读恢复：状态校验失败，请导出恢复诊断。";
+
+function renderUpdateEntry() {
+  updateEntry.hidden = !availableUpdate;
+  if (availableUpdate) updateEntry.textContent = `新版本 ${availableUpdate.version}`;
+}
+
+async function checkForUpdate({ announceResult = false } = {}) {
+  try {
+    const response = await fetch(`./app-version.json?checked=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const manifest = await response.json();
+    availableUpdate = isVersionNewer(manifest.version) ? manifest : null;
+    renderUpdateEntry();
+    if (announceResult) setMessage(availableUpdate ? `发现新版本 ${availableUpdate.version}，存档会保留。` : `当前 ${APP_VERSION} 已经是最新版。`);
+    return availableUpdate;
+  } catch {
+    if (announceResult) setMessage("暂时无法检查更新，请稍后再试。", "error");
+    return null;
+  }
+}
+
+function applyAvailableUpdate() {
+  if (!availableUpdate) return;
+  try {
+    if (!state.read_only_recovery) lastSavedAt = store.save(state).written_at;
+    const target = new URL("./", window.location.href);
+    target.searchParams.set("update", availableUpdate.version);
+    target.searchParams.set("t", String(Date.now()));
+    window.location.replace(target.href);
+  } catch (error) {
+    setMessage(userFacingError(error, "更新前无法保存当前进度，请先导出备份。"), "error");
+    render();
+  }
+}
 
 function renderNewSaveSetup(reason = "首次建档前，请确认现实日期规则。", focusContext = captureRenderFocus()) {
   const detected = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
@@ -307,11 +345,24 @@ function announce(text) {
 }
 
 function setMessage(text, kind = "good") {
-  message = { text, kind };
+  if (messageDismissTimer !== null) clearTimeout(messageDismissTimer);
+  messageDismissTimer = null;
+  const nextMessage = { text, kind };
+  message = nextMessage;
   announce(text);
+  if (kind !== "error") {
+    messageDismissTimer = setTimeout(() => {
+      if (message !== nextMessage) return;
+      message = null;
+      main.querySelector(".action-notice")?.remove();
+      messageDismissTimer = null;
+    }, 4000);
+  }
 }
 
 function clearMessage() {
+  if (messageDismissTimer !== null) clearTimeout(messageDismissTimer);
+  messageDismissTimer = null;
   message = null;
   announce("");
 }
@@ -448,7 +499,7 @@ function renderStatus() {
 
 function renderNotice() {
   if (!message) return "";
-  return `<div class="notice action-notice ${message.kind === "error" ? "warning" : ""}">${esc(message.text)}</div>`;
+  return `<div class="notice action-notice ${message.kind === "error" ? "warning" : ""}"><span>${esc(message.text)}</span><button type="button" class="notice-dismiss" data-special="dismiss-message" aria-label="关闭提示" title="关闭提示">×</button></div>`;
 }
 
 function featureRoadmap() {
@@ -697,6 +748,7 @@ function renderSettings() {
       <label>行距<input name="line_height" type="number" min="1.2" max="2.2" step="0.1" value="${state.settings.line_height}"></label>
       <label>浏览器标签标题<input name="tab_title" value="${esc(state.settings.tab_title)}"></label><button>保存</button></form></article>
     <article class="card"><h3>时间</h3><p>当前时区 ${esc(state.timezone)} · 每天 ${state.rollover_hour}:00 刷新</p><form data-command="timezone.migrate" class="inline-form"><label>新时区<input name="timezone" value="${esc(state.timezone)}"></label><input type="hidden" name="now" value="${Date.now()}"><button>更改时区</button></form><p class="meta">改过后要等84个牧场日才能再改，日期不会重复。</p></article>
+    <article class="card"><h3>版本更新</h3><p>当前版本 <strong>${esc(APP_VERSION)}</strong></p><p class="meta">${availableUpdate ? `发现 ${esc(availableUpdate.version)}：${esc(availableUpdate.notes ?? "包含新的功能和修复。")} 存档会保留。` : `更新只替换程序，当前浏览器里的存档会保留。${esc(APP_RELEASE_NOTES)}`}</p><div class="actions"><button type="button" data-special="check-update">检查更新</button>${availableUpdate ? '<button type="button" class="primary" data-special="apply-update">更新到最新版</button>' : ""}</div></article>
     <article class="card"><h3>备份</h3>${recoveryDiagnostic ? '<p class="notice warning">两个本机存档都打不开。原文件没有被改动；请先导出诊断，再决定是否新建。</p>' : ""}<div class="actions backup-actions"><button type="button" data-special="export">${recoveryDiagnostic ? "导出诊断" : "导出备份"}</button><button type="button" data-special="choose-import">导入备份</button><input id="import-save" type="file" accept="application/json,.json" hidden></div><p class="meta">导入前会检查文件，并保留导入前的存档。</p></article>
     <article class="card"><h3>当前存档</h3>${saveSummary()}<p class="meta save-reset-note">创建新存档会替换现在的进度，建议先导出备份。</p><button type="button" class="danger" data-special="reset" data-danger="确认创建全新存档？请先导出当前存档；浏览器中的当前进度将被替换。">创建新存档</button></article></section>`;
 }
@@ -784,6 +836,8 @@ nav.addEventListener("click", (event) => {
   focusPageStart({ alignMain: pageWasScrolled });
 });
 
+updateEntry.addEventListener("click", applyAvailableUpdate);
+
 main.addEventListener("click", async (event) => {
   const command = event.target.closest("[data-command]");
   if (command && command.tagName === "BUTTON") {
@@ -794,6 +848,21 @@ main.addEventListener("click", async (event) => {
   const special = event.target.closest("[data-special]");
   if (!special) return;
   const focusContext = captureRenderFocus(main, special);
+  if (special.dataset.special === "check-update") {
+    await checkForUpdate({ announceResult: true });
+    render(focusContext);
+    return;
+  }
+  if (special.dataset.special === "apply-update") {
+    applyAvailableUpdate();
+    return;
+  }
+  if (special.dataset.special === "dismiss-message") {
+    clearMessage();
+    special.closest(".action-notice")?.remove();
+    focusWithoutScroll(main);
+    return;
+  }
   if (special.dataset.special === "onboarding-page") {
     const targetPage = special.dataset.pageTarget;
     if (!isPageAvailable(targetPage)) return;
@@ -985,6 +1054,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 function initialize() {
+  void checkForUpdate();
   const loaded = store.load();
   if (loaded.state) {
     state = loaded.state;

@@ -5,6 +5,7 @@ import { executeCommand } from "../src/core/engine.js";
 import { createNewSave } from "../src/core/state.js";
 import { MemoryStorage, SaveStore } from "../src/persistence/store.js";
 import { ALL_PAGE_IDS, availablePages, onboardingProgress } from "../src/presentation/progression.js";
+import { APP_VERSION, isVersionNewer } from "../src/presentation/version.js";
 
 test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持简单可用", async () => {
   const [html, app, labels, help, styles, build] = await Promise.all([
@@ -76,9 +77,12 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.match(app, /availability\.unavailable \? "work-unavailable"/);
   assert.match(styles, /button\.work-unavailable:disabled \{[^}]*opacity: 1;[^}]*border-color: var\(--danger\);/);
   assert.match(styles, /\.action-cost\.shortage \{[^}]*color: var\(--danger\);/);
-  assert.match(app, /class="notice action-notice \$\{message\.kind === "error" \? "warning" : ""\}"/);
+  assert.match(app, /class="notice action-notice \$\{message\.kind === "error" \? "warning" : ""\}"[\s\S]*data-special="dismiss-message"[\s\S]*aria-label="关闭提示"/);
   assert.doesNotMatch(app, /class="notice action-notice[^>]*role=/);
   assert.match(styles, /\.action-notice \{[^}]*position: fixed;[^}]*--site-shell-height/);
+  assert.match(app, /kind !== "error"[\s\S]*setTimeout\([\s\S]*\.action-notice[\s\S]*4000/);
+  assert.match(app, /special\.dataset\.special === "dismiss-message"[\s\S]*clearMessage\(\);/);
+  assert.match(styles, /\.notice-dismiss \{[^}]*border-radius: 50%;/);
   assert.doesNotMatch(app, /(?:action_id|save_seed): crypto\.randomUUID\(\)/);
   assert.match(app, /function randomToken\(\)[\s\S]*crypto\?\.randomUUID[\s\S]*crypto\?\.getRandomValues/);
   assert.match(html, /<div id="site-shell" class="site-shell">[\s\S]*?<header class="site-header">[\s\S]*?<nav id="main-nav"/);
@@ -113,6 +117,19 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.equal(saveStore.save(saveState, { now: Date.parse(expectedSavedAt) }).written_at, expectedSavedAt);
   assert.equal(saveStore.load().written_at, expectedSavedAt);
   assert.match(html, /aria-label="打开玩法说明（新窗口）"/);
+  assert.match(html, /id="update-entry"[^>]*hidden[^>]*>有新版本<\/button>/);
+  assert.equal(APP_VERSION, "0.3.0");
+  assert.equal(isVersionNewer("0.3.1"), true);
+  assert.equal(isVersionNewer("0.4.0"), true);
+  assert.equal(isVersionNewer("0.3.0"), false);
+  assert.equal(isVersionNewer("0.2.9"), false);
+  assert.equal(isVersionNewer("not-a-version"), false);
+  assert.match(app, /fetch\(`\.\/app-version\.json\?checked=\$\{Date\.now\(\)\}`[^;]*cache: "no-store"/);
+  assert.match(app, /if \(!state\.read_only_recovery\) lastSavedAt = store\.save\(state\)\.written_at/);
+  assert.match(app, /target\.searchParams\.set\("update", availableUpdate\.version\)/);
+  assert.match(app, /window\.location\.replace\(target\.href\)/);
+  for (const updateCopy of ["版本更新", "检查更新", "更新到最新版", "存档会保留"]) assert.ok(app.includes(updateCopy), `版本入口缺少：${updateCopy}`);
+  assert.match(help, /版本更新[\s\S]*更新只替换网页程序，不会删除浏览器里的存档[\s\S]*按版本逐步迁移/);
   for (const section of ["quick-start", "unlocking", "resources", "weather", "pages", "day-change", "controls", "saving"]) {
     assert.match(help, new RegExp(`id="${section}"`), `玩法说明缺少章节：${section}`);
   }
@@ -148,4 +165,7 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.match(help, /按钮上会直接写明要花多少 WP/);
   assert.match(labels, /today: "先看看今天"/);
   assert.match(build, /\["index\.html", "help\.html", "README\.md", "src"\]/);
+  assert.match(build, /app-version\.json/);
+  assert.match(build, /styles\.css\?v=\$\{APP_VERSION\}/);
+  assert.match(build, /app\.js\?v=\$\{APP_VERSION\}/);
 });
