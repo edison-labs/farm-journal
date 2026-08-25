@@ -450,7 +450,8 @@ function focusPageStart({ alignMain = true } = {}) {
 function focusPageTarget(target) {
   if (!target) return;
   focusWithoutScroll(target);
-  const targetTop = target.getBoundingClientRect().top + window.scrollY;
+  const revealTarget = target.closest(".card") ?? target;
+  const targetTop = revealTarget.getBoundingClientRect().top + window.scrollY;
   const stickyHeaderHeight = siteShell.getBoundingClientRect().height;
   window.scrollTo({ top: Math.max(0, targetTop - stickyHeaderHeight - 12), behavior: "auto" });
 }

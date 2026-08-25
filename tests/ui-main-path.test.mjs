@@ -119,9 +119,10 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.equal(saveStore.load().written_at, expectedSavedAt);
   assert.match(html, /aria-label="打开玩法说明（新窗口）"/);
   assert.match(html, /id="update-entry"[^>]*hidden[^>]*>有新版本<\/button>/);
-  assert.equal(APP_VERSION, "0.3.1");
-  assert.equal(isVersionNewer("0.3.2"), true);
+  assert.equal(APP_VERSION, "0.3.2");
+  assert.equal(isVersionNewer("0.3.3"), true);
   assert.equal(isVersionNewer("0.4.0"), true);
+  assert.equal(isVersionNewer("0.3.2"), false);
   assert.equal(isVersionNewer("0.3.1"), false);
   assert.equal(isVersionNewer("0.2.9"), false);
   assert.equal(isVersionNewer("not-a-version"), false);
@@ -143,6 +144,8 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.match(app, /function focusNewSaveSetup\(\)[\s\S]*focusPageStart\(\);[\s\S]*input\[name="timezone"\]/);
   assert.match(app, /special\.dataset\.special === "reset"[\s\S]*renderNewSaveSetup\([^;]+, null\);[\s\S]*focusNewSaveSetup\(\);/);
   assert.match(app, /新存档已创建：[\s\S]*saveAndRender\(null\);[\s\S]*focusPageStart\(\);/);
+  assert.match(app, /const revealTarget = target\.closest\("\.card"\) \?\? target/);
+  assert.match(app, /focusWithoutScroll\(target\);[\s\S]*revealTarget\.getBoundingClientRect\(\)\.top/);
 
   const legacyState = createNewSave({ now: Date.parse("2026-08-20T04:00:00Z"), timezone: "Asia/Dubai", save_seed: "legacy-navigation", save_id: "legacy_navigation" });
   assert.deepEqual([...availablePages(legacyState)], [...ALL_PAGE_IDS], "旧存档应保留全部页面");
