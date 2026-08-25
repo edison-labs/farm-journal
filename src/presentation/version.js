@@ -1,5 +1,5 @@
-export const APP_VERSION = "0.3.0";
-export const APP_RELEASE_NOTES = "新增新手引导、渐进开放、提示自动关闭和主动更新入口。";
+export const APP_VERSION = "0.3.1";
+export const APP_RELEASE_NOTES = "按钮不再显示数字编号，页面更简洁；数字键快捷操作仍然可用。";
 
 function versionNumbers(value) {
   return String(value).split(".").map((part) => Number(part));

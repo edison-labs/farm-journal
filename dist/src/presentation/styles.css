@@ -24,7 +24,6 @@ body { margin: 0; min-height: 100vh; background: var(--paper); color: var(--ink)
 button, input, select, textarea { font: inherit; }
 button, input, select { min-height: 2.4rem; }
 button { border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: .45rem .75rem; cursor: pointer; }
-button[data-shortcut]::before, a[data-shortcut]::before { content: attr(data-shortcut) ". "; font-variant-numeric: tabular-nums; }
 button:hover, button:focus-visible { border-color: var(--accent); outline: 2px solid transparent; background: var(--accent-soft); }
 button[data-wp-operation="true"] { display: inline-flex; max-width: 100%; align-items: center; justify-content: center; flex-wrap: wrap; gap: .3rem .5rem; }
 .action-cost { display: inline-flex; align-items: center; margin: 0; padding: .12rem .48rem; border: 0; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: .72em; font-weight: 800; line-height: 1.35; letter-spacing: .01em; white-space: nowrap; text-decoration: none; }

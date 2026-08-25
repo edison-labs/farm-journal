@@ -68,6 +68,7 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   ]) assert.equal(app.includes(oldCopy), false, `旧文案仍在玩家界面：${oldCopy}`);
 
   assert.match(app, /data-wp-operation="true"/);
+  assert.doesNotMatch(styles, /\[data-shortcut\]::before/);
   assert.match(styles, /\.action-cost \{[^}]*display: inline-flex;[^}]*border: 0;[^}]*border-radius: 999px;[^}]*font-weight: 800;/);
   assert.doesNotMatch(styles, /\.action-cost \{[^}]*text-decoration: underline;/);
   assert.match(app, /return costs\.length \? `需 \$\{costs\.join\(" \/ "\)\}`/);
@@ -118,10 +119,10 @@ test("UI主路径：十页文案、关键操作、WP提示和玩法说明保持�
   assert.equal(saveStore.load().written_at, expectedSavedAt);
   assert.match(html, /aria-label="打开玩法说明（新窗口）"/);
   assert.match(html, /id="update-entry"[^>]*hidden[^>]*>有新版本<\/button>/);
-  assert.equal(APP_VERSION, "0.3.0");
-  assert.equal(isVersionNewer("0.3.1"), true);
+  assert.equal(APP_VERSION, "0.3.1");
+  assert.equal(isVersionNewer("0.3.2"), true);
   assert.equal(isVersionNewer("0.4.0"), true);
-  assert.equal(isVersionNewer("0.3.0"), false);
+  assert.equal(isVersionNewer("0.3.1"), false);
   assert.equal(isVersionNewer("0.2.9"), false);
   assert.equal(isVersionNewer("not-a-version"), false);
   assert.match(app, /fetch\(`\.\/app-version\.json\?checked=\$\{Date\.now\(\)\}`[^;]*cache: "no-store"/);
