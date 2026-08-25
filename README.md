@@ -35,6 +35,20 @@ npm run evidence
 
 发布新版时，同时更新 `package.json` 与 `src/presentation/version.js` 中的版本号，再运行 `npm run build` 并完整部署 `dist/`。构建会生成 `dist/app-version.json`，并为入口脚本和样式加版本参数；已有客户端发现更高版本后会显示主动更新入口。这个入口负责保存本机存档并加载服务器上已经发布的新版，不代替服务器部署。
 
+## 阿里云一键更新
+
+服务器首次安装更新脚本后，以后发布最新版只需用 root 运行：
+
+```sh
+bash /root/update-farm.sh
+```
+
+脚本位于 `deploy/update-aliyun.sh`。它会从 GitHub 的 codeload 地址下载 `master`、创建独立发布目录、检查关键文件、切换 8080 端口上的 Nginx Docker 容器，并在启动检查失败时恢复旧容器。旧发布目录和旧容器不会自动删除，可用于人工回退。也可将提交哈希作为参数，发布指定版本：
+
+```sh
+bash /root/update-farm.sh 777ebd3faafa5ea0a670d554fd3ea52212ff4efa
+```
+
 黄金回放采用显式版本化：`fixtures/golden-replays-v1.json` 永久保留为内容机械化前的历史基线，当前 V0.2.0 实现由 `golden-replays-v2.json` 冻结。基线升级必须新增文件并记录首次分歧原因，不能覆盖历史文件。
 
 ## 存档兼容
